@@ -7,15 +7,18 @@ import { defineStore } from 'pinia'
  * - Controlar drawer lateral em mobile
  * - Mostrar/ocultar navbar
  * - Armazenar título da página atual
+ * - Controlar modo rail (miniatura) do drawer
  */
 export const useNavbarStore = defineStore('navbar', () => {
   // State
   const drawer = ref(false)
+  const rail = ref(false) // Modo miniatura do drawer
   const title = ref('HPlayground')
   const showNavbar = ref(true)
 
   // Getters
   const isDrawerOpen = computed(() => drawer.value)
+  const isRailMode = computed(() => rail.value)
   const currentTitle = computed(() => title.value)
 
   // Actions
@@ -25,6 +28,14 @@ export const useNavbarStore = defineStore('navbar', () => {
 
   function setDrawer(value: boolean) {
     drawer.value = value
+  }
+
+  function toggleRail() {
+    rail.value = !rail.value
+  }
+
+  function setRail(value: boolean) {
+    rail.value = value
   }
 
   function setTitle(newTitle: string) {
@@ -38,16 +49,20 @@ export const useNavbarStore = defineStore('navbar', () => {
   return {
     // State
     drawer,
+    rail,
     title,
     showNavbar,
 
     // Getters
     isDrawerOpen,
+    isRailMode,
     currentTitle,
 
     // Actions
     toggleDrawer,
     setDrawer,
+    toggleRail,
+    setRail,
     setTitle,
     toggleNavbar,
   }
