@@ -15,11 +15,6 @@ function navigateTo(path: string) {
     <!-- Hero Section -->
     <v-row class="justify-center text-center py-8">
       <v-col cols="12" md="8">
-        <h1 class="text-h3 font-weight-bold mb-3 gradient-text">Bem-vindo ao HPlayground</h1>
-        <p class="text-h6 text-medium-emphasis mb-8">
-          Um ambiente moderno para testar componentes e aprender Vue.js
-        </p>
-
         <!-- Barra de busca centralizada e moderna -->
         <v-row class="justify-center">
           <v-col cols="12" sm="10" md="8" lg="6">
@@ -30,10 +25,9 @@ function navigateTo(path: string) {
               clearable
               variant="solo"
               rounded="xl"
-              flat
               hide-details
               density="comfortable"
-              class="search-field elevation-2"
+              class="search-field"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -44,13 +38,7 @@ function navigateTo(path: string) {
     <v-row class="justify-center mt-4">
       <v-col cols="12" md="10" lg="8">
         <v-row>
-          <v-col
-            v-for="route in filteredRoutes"
-            :key="route.path"
-            cols="12"
-            sm="6"
-            md="4"
-          >
+          <v-col v-for="route in filteredRoutes" :key="route.path" cols="12" sm="6" md="4">
             <v-card
               hover
               class="route-card h-100"
@@ -60,7 +48,17 @@ function navigateTo(path: string) {
             >
               <v-card-text class="pa-6">
                 <div class="d-flex align-center mb-3">
-                  <v-avatar :color="route.icon === 'mdi-home' ? 'primary' : route.icon === 'mdi-login' ? 'secondary' : 'accent'" size="48" class="mr-3">
+                  <v-avatar
+                    :color="
+                      route.icon === 'mdi-home'
+                        ? 'primary'
+                        : route.icon === 'mdi-login'
+                          ? 'secondary'
+                          : 'accent'
+                    "
+                    size="48"
+                    class="mr-3"
+                  >
                     <v-icon :icon="route.icon" size="28" color="white"></v-icon>
                   </v-avatar>
                   <div>

@@ -35,16 +35,25 @@ const activeTab = ref('overview')
                   componentes UI de forma isolada. É útil para:
                 </p>
                 <v-list density="comfortable">
-                  <v-list-item prepend-icon="mdi-check-circle" title="Desenvolver componentes isoladamente">
+                  <v-list-item
+                    prepend-icon="mdi-check-circle"
+                    title="Desenvolver componentes isoladamente"
+                  >
                   </v-list-item>
-                  <v-list-item prepend-icon="mdi-check-circle" title="Documentar componentes visualmente">
+                  <v-list-item
+                    prepend-icon="mdi-check-circle"
+                    title="Documentar componentes visualmente"
+                  >
                   </v-list-item>
                   <v-list-item
                     prepend-icon="mdi-check-circle"
                     title="Testar diferentes estados dos componentes"
                   >
                   </v-list-item>
-                  <v-list-item prepend-icon="mdi-check-circle" title="Compartilhar componentes com o time">
+                  <v-list-item
+                    prepend-icon="mdi-check-circle"
+                    title="Compartilhar componentes com o time"
+                  >
                   </v-list-item>
                 </v-list>
               </v-card-text>
@@ -53,9 +62,7 @@ const activeTab = ref('overview')
             <v-card elevation="2">
               <v-card-text>
                 <h2 class="text-h5 mb-4">Como usar?</h2>
-                <p class="mb-4">
-                  Para iniciar o Storybook em modo de desenvolvimento, execute:
-                </p>
+                <p class="mb-4">Para iniciar o Storybook em modo de desenvolvimento, execute:</p>
                 <v-card variant="tonal" color="grey" class="mb-4">
                   <v-card-text class="font-weight-bold">
                     <code>npm run storybook</code>
@@ -93,7 +100,9 @@ const activeTab = ref('overview')
                       <v-card variant="tonal" color="grey" class="mt-2 pa-3">
                         <code>npm run storybook</code>
                       </v-card>
-                      <p class="mt-2">Inicia o servidor de desenvolvimento do Storybook na porta 6006</p>
+                      <p class="mt-2">
+                        Inicia o servidor de desenvolvimento do Storybook na porta 6006
+                      </p>
                     </v-list-item-subtitle>
                   </v-list-item>
 
@@ -127,9 +136,7 @@ const activeTab = ref('overview')
                     <h3 class="text-h6 mb-2">📁 .storybook/</h3>
                     <p class="mb-2">Pasta de configuração do Storybook</p>
                     <v-list density="compact">
-                      <v-list-item>
-                        <code>main.ts</code> - Configuração principal
-                      </v-list-item>
+                      <v-list-item> <code>main.ts</code> - Configuração principal </v-list-item>
                       <v-list-item>
                         <code>preview.ts</code> - Configurações de preview
                       </v-list-item>
@@ -142,15 +149,9 @@ const activeTab = ref('overview')
                     <h3 class="text-h6 mb-2">📁 src/stories/</h3>
                     <p class="mb-2">Stories dos componentes</p>
                     <v-list density="compact">
-                      <v-list-item>
-                        <code>Button.stories.ts</code> - Exemplo de story
-                      </v-list-item>
-                      <v-list-item>
-                        <code>Header.stories.ts</code> - Exemplo de story
-                      </v-list-item>
-                      <v-list-item>
-                        <code>Page.stories.ts</code> - Exemplo de story
-                      </v-list-item>
+                      <v-list-item> <code>Button.stories.ts</code> - Exemplo de story </v-list-item>
+                      <v-list-item> <code>Header.stories.ts</code> - Exemplo de story </v-list-item>
+                      <v-list-item> <code>Page.stories.ts</code> - Exemplo de story </v-list-item>
                     </v-list>
                   </v-card-text>
                 </v-card>
