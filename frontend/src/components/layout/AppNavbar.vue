@@ -13,11 +13,8 @@ function goHome() {
 </script>
 
 <template>
-  <v-app-bar flat elevation="0" class="app-bar" color="surface">
-    <v-app-bar-nav-icon
-      variant="text"
-      @click="navbarStore.toggleRail"
-    ></v-app-bar-nav-icon>
+  <v-app-bar flat elevation="0" class="app-bar" color="primary">
+    <v-app-bar-nav-icon variant="text" @click="navbarStore.toggleRail"></v-app-bar-nav-icon>
 
     <v-toolbar-title class="cursor-pointer d-flex align-center" @click="goHome">
       <v-icon icon="mdi-cube-outline" size="32" class="mr-2" color="primary"></v-icon>
@@ -26,12 +23,7 @@ function goHome() {
 
     <v-spacer></v-spacer>
 
-    <v-btn
-      icon
-      variant="text"
-      @click="themeStore.toggleTheme"
-      class="mr-2"
-    >
+    <v-btn icon variant="text" class="mr-2" @click="themeStore.toggleTheme">
       <v-icon>{{ themeStore.isDark ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</v-icon>
     </v-btn>
 
