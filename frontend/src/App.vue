@@ -1,11 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AppNavbar from '@/components/layout/AppNavbar.vue'
+import AppDrawer from '@/components/layout/AppDrawer.vue'
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
-</template>
+  <v-app>
+    <AppNavbar />
+    <AppDrawer />
 
-<style scoped></style>
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
+</template>
