@@ -29,4 +29,12 @@ export const routesConfig: RouteInfo[] = [
     icon: 'mdi-view-dashboard',
     showInHome: true,
   },
+  {
+    path: '/storybook',
+    name: 'storybook',
+    title: 'Storybook',
+    description: 'Documentação e desenvolvimento de componentes isolados',
+    icon: 'mdi-book-open-variant',
+    showInHome: true,
+  },
 ]
