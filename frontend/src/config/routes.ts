@@ -29,4 +29,12 @@ export const routesConfig: RouteInfo[] = [
     icon: 'mdi-view-dashboard',
     showInHome: true,
   },
+  {
+    path: '/page1',
+    name: 'page1',
+    title: 'Custom Directives',
+    description: 'Aprenda a criar e usar custom directives com tooltips',
+    icon: 'mdi-tooltip-text',
+    showInHome: true,
+  },
 ]
