@@ -12,15 +12,6 @@ function navigateTo(path: string) {
 
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12">
-        <h1 class="text-h3 mb-4">Bem-vindo ao HPlayground</h1>
-        <p class="text-subtitle-1 mb-6">
-          Um ambiente para testar componentes, boas práticas e aprender sobre Vue.js
-        </p>
-      </v-col>
-    </v-row>
-
     <!-- Barra de busca -->
     <v-row>
       <v-col cols="12">
@@ -39,11 +30,7 @@ function navigateTo(path: string) {
     <!-- Cards de rotas -->
     <v-row>
       <v-col v-for="route in filteredRoutes" :key="route.path" cols="12" sm="6" md="4">
-        <v-card
-          hover
-          class="route-card"
-          @click="navigateTo(route.path)"
-        >
+        <v-card hover class="route-card" @click="navigateTo(route.path)">
           <v-card-title class="d-flex align-center">
             <v-icon :icon="route.icon" class="mr-2" size="large"></v-icon>
             {{ route.title }}
