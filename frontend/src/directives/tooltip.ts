@@ -18,14 +18,14 @@ import type { Directive, DirectiveBinding } from 'vue'
  * Opções disponíveis:
  * - text: string - Texto do tooltip
  * - maxLength: number - Mostra tooltip apenas se o conteúdo do elemento tiver mais caracteres que este valor
- * - showOnOverflow: boolean - Mostra tooltip apenas quando o texto está truncado (overflow)
+ * - truncatedOnly: boolean - Aplica estilos de truncamento e mostra tooltip apenas quando o texto está truncado
  * - disabled: boolean - Desabilita o tooltip
  */
 
 interface TooltipOptions {
   text: string
   maxLength?: number
-  showOnOverflow?: boolean
+  truncatedOnly?: boolean
   disabled?: boolean
 }
 
@@ -34,6 +34,11 @@ interface TooltipElement extends HTMLElement {
   __showTooltip?: () => void
   __hideTooltip?: () => void
   __tooltipOptions?: TooltipOptions
+  __originalStyles?: {
+    whiteSpace: string
+    overflow: string
+    textOverflow: string
+  }
 }
 
 function getPosition(
@@ -102,6 +107,32 @@ function positionTooltip(el: TooltipElement, tooltip: HTMLDivElement, position: 
   tooltip.style.left = `${left}px`
 }
 
+function applyTruncateStyles(el: TooltipElement) {
+  // Salva os estilos originais antes de modificar
+  if (!el.__originalStyles) {
+    el.__originalStyles = {
+      whiteSpace: el.style.whiteSpace,
+      overflow: el.style.overflow,
+      textOverflow: el.style.textOverflow,
+    }
+  }
+
+  // Aplica os estilos de truncamento
+  el.style.whiteSpace = 'nowrap'
+  el.style.overflow = 'hidden'
+  el.style.textOverflow = 'ellipsis'
+}
+
+function removeTruncateStyles(el: TooltipElement) {
+  // Restaura os estilos originais
+  if (el.__originalStyles) {
+    el.style.whiteSpace = el.__originalStyles.whiteSpace
+    el.style.overflow = el.__originalStyles.overflow
+    el.style.textOverflow = el.__originalStyles.textOverflow
+    delete el.__originalStyles
+  }
+}
+
 function shouldShowTooltip(el: TooltipElement): boolean {
   const options = el.__tooltipOptions
   if (!options || options.disabled) return false
@@ -114,8 +145,8 @@ function shouldShowTooltip(el: TooltipElement): boolean {
     }
   }
 
-  // Verifica overflow
-  if (options.showOnOverflow) {
+  // Verifica overflow (truncatedOnly)
+  if (options.truncatedOnly) {
     const isOverflowing =
       el.scrollWidth > el.clientWidth || el.scrollHeight > el.clientHeight
     if (!isOverflowing) {
@@ -159,6 +190,11 @@ export const vHTooltip: Directive<TooltipElement, string | TooltipOptions> = {
 
     const position = getPosition(binding.modifiers)
 
+    // Aplica estilos de truncamento se necessário
+    if (options.truncatedOnly) {
+      applyTruncateStyles(el)
+    }
+
     // Cria o tooltip
     el.__tooltip = createTooltip(el, options.text, position)
 
@@ -182,8 +218,19 @@ export const vHTooltip: Directive<TooltipElement, string | TooltipOptions> = {
     const options = parseBinding(binding)
     if (!options.text || !el.__tooltip) return
 
+    const oldOptions = el.__tooltipOptions
+
     // Atualiza as opções
     el.__tooltipOptions = options
+
+    // Gerencia estilos de truncamento
+    if (options.truncatedOnly && !oldOptions?.truncatedOnly) {
+      // Ativou truncatedOnly
+      applyTruncateStyles(el)
+    } else if (!options.truncatedOnly && oldOptions?.truncatedOnly) {
+      // Desativou truncatedOnly
+      removeTruncateStyles(el)
+    }
 
     // Atualiza o texto do tooltip
     el.__tooltip.textContent = options.text
@@ -215,6 +262,9 @@ export const vHTooltip: Directive<TooltipElement, string | TooltipOptions> = {
     if (el.__tooltip && el.__tooltip.parentNode) {
       el.__tooltip.parentNode.removeChild(el.__tooltip)
     }
+
+    // Remove estilos de truncamento
+    removeTruncateStyles(el)
 
     // Limpa as referências
     delete el.__tooltip

@@ -199,12 +199,15 @@ const isTooltipDisabled = ref(false)
 
             <v-divider class="my-6"></v-divider>
 
-            <!-- ShowOnOverflow -->
+            <!-- TruncatedOnly -->
             <v-row class="mb-6">
               <v-col cols="12">
-                <h4 class="text-subtitle-1 font-weight-bold mb-3">4.2 - Show On Overflow</h4>
+                <h4 class="text-subtitle-1 font-weight-bold mb-3">
+                  4.2 - Truncated Only (Auto-truncamento!)
+                </h4>
                 <p class="text-body-2 mb-3">
-                  O tooltip só aparece quando o texto está truncado (com overflow).
+                  Aplica estilos de truncamento automaticamente e mostra o tooltip apenas quando o
+                  texto está truncado. <strong>Você não precisa mais adicionar classes CSS!</strong>
                 </p>
               </v-col>
               <v-col cols="12" md="6">
@@ -213,9 +216,9 @@ const isTooltipDisabled = ref(false)
                     <div
                       v-h-tooltip="{
                         text: 'Este texto está truncado! Por isso o tooltip aparece.',
-                        showOnOverflow: true,
+                        truncatedOnly: true,
                       }"
-                      class="text-truncate pa-3 bg-blue-lighten-5 rounded"
+                      class="pa-3 bg-blue-lighten-5 rounded"
                       style="max-width: 300px"
                     >
                       Este é um texto muito longo que vai ser truncado com ellipsis...
@@ -224,7 +227,7 @@ const isTooltipDisabled = ref(false)
                     <div
                       v-h-tooltip="{
                         text: 'Este NÃO vai aparecer pois não tem overflow',
-                        showOnOverflow: true,
+                        truncatedOnly: true,
                       }"
                       class="pa-3 bg-green-lighten-5 rounded"
                       style="max-width: 250px"
@@ -232,21 +235,37 @@ const isTooltipDisabled = ref(false)
                       Texto curto
                     </div>
                   </div>
+
+                  <v-alert type="info" variant="tonal" class="mt-4">
+                    <small>
+                      A directive aplica automaticamente:
+                      <code>white-space: nowrap</code>, <code>overflow: hidden</code>,
+                      <code>text-overflow: ellipsis</code>
+                    </small>
+                  </v-alert>
                 </v-card>
               </v-col>
               <v-col cols="12" md="6">
                 <v-card variant="tonal" color="grey-lighten-4" class="pa-4">
                   <p class="text-caption mb-2">Código:</p>
-                  <pre class="code-block"><code>&lt;div
+                  <pre class="code-block"><code>&lt;!-- Sem classes CSS de truncamento! --&gt;
+&lt;div
   v-h-tooltip="{
     text: 'Truncado!',
-    showOnOverflow: true
+    truncatedOnly: true
   }"
-  class="text-truncate"
   style="max-width: 250px"
 &gt;
   Texto longo...
 &lt;/div&gt;</code></pre>
+                  <v-divider class="my-3"></v-divider>
+                  <p class="text-caption text-success">
+                    ✅ A directive aplica os estilos automaticamente!
+                  </p>
+                  <p class="text-caption text-success">✅ Framework-agnostic (funciona em qualquer projeto)</p>
+                  <p class="text-caption text-success">
+                    ✅ Restaura estilos originais quando desmontado
+                  </p>
                 </v-card>
               </v-col>
             </v-row>
@@ -409,8 +428,8 @@ export const vHTooltip = {
               ></v-list-item>
               <v-list-item
                 prepend-icon="mdi-text-box-outline"
-                title="showOnOverflow?: boolean"
-                subtitle="Mostra tooltip apenas quando o texto está truncado (overflow)"
+                title="truncatedOnly?: boolean"
+                subtitle="Aplica estilos de truncamento automaticamente e mostra tooltip apenas quando o texto está truncado"
               ></v-list-item>
               <v-list-item
                 prepend-icon="mdi-close-circle"
