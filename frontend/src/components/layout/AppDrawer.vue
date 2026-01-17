@@ -16,12 +16,7 @@ function navigateTo(path: string) {
 </script>
 
 <template>
-  <v-navigation-drawer
-    :model-value="true"
-    :rail="navbarStore.rail"
-    permanent
-    class="app-drawer"
-  >
+  <v-navigation-drawer :model-value="true" :rail="navbarStore.rail" permanent class="app-drawer">
     <!-- Logo/Header quando expandido -->
     <div v-if="!navbarStore.rail" class="pa-4">
       <div class="d-flex align-center">
@@ -38,7 +33,10 @@ function navigateTo(path: string) {
     <!-- Rotas agrupadas -->
     <template v-for="group in routeGroups" :key="group.name">
       <!-- Header do grupo (apenas quando não está em rail mode) -->
-      <v-list-subheader v-if="!navbarStore.rail" class="text-uppercase text-caption font-weight-bold mt-4">
+      <v-list-subheader
+        v-if="!navbarStore.rail"
+        class="text-uppercase text-caption font-weight-bold ml-3 mt-4"
+      >
         {{ group.name }}
       </v-list-subheader>
 
@@ -96,12 +94,12 @@ function navigateTo(path: string) {
 
 <style scoped>
 .app-drawer {
-  background: linear-gradient(180deg, #1F1F23 0%, #1A1A1F 100%) !important;
+  background: linear-gradient(180deg, #1f1f23 0%, #1a1a1f 100%) !important;
   border-right: 1px solid rgba(139, 92, 246, 0.1);
 }
 
 .drawer-item {
-  margin: 2px 8px;
+  margin: 2px;
   transition: all 0.2s ease;
 }
 
@@ -110,8 +108,11 @@ function navigateTo(path: string) {
 }
 
 .drawer-item.v-list-item--active {
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%) !important;
-  border-left: 3px solid rgb(139, 92, 246);
+  background: linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.2) 0%,
+    rgba(139, 92, 246, 0.1) 100%
+  ) !important;
   color: rgb(229, 229, 229);
   font-weight: 600;
 }
