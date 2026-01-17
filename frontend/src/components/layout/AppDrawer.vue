@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useNavbarStore } from '@/stores/navbar'
-import { routesConfig } from '@/config/routes'
+import { routeGroups } from '@/config/routes'
 import { useRouter, useRoute } from 'vue-router'
 import { computed } from 'vue'
 
@@ -17,44 +17,78 @@ function navigateTo(path: string) {
 
 <template>
   <v-navigation-drawer
-    v-model="navbarStore.rail"
+    :model-value="true"
     :rail="navbarStore.rail"
     permanent
     class="app-drawer"
-    @click="navbarStore.rail && navbarStore.toggleRail()"
   >
-    <v-list density="compact" nav class="py-2">
-      <v-list-item
-        v-for="route in routesConfig"
-        :key="route.path"
-        :prepend-icon="route.icon"
-        :title="route.title"
-        :value="route.name"
-        :active="currentRoute === route.name"
-        class="drawer-item"
-        @click="navigateTo(route.path)"
-      >
-        <template #append>
-          <v-icon v-if="currentRoute === route.name" color="primary" size="small">
-            mdi-circle
-          </v-icon>
-        </template>
-      </v-list-item>
-    </v-list>
+    <!-- Logo/Header quando expandido -->
+    <div v-if="!navbarStore.rail" class="pa-4">
+      <div class="d-flex align-center">
+        <v-icon icon="mdi-cube-outline" color="primary" size="32" class="mr-3"></v-icon>
+        <div>
+          <div class="text-subtitle-1 font-weight-bold">HPlayground</div>
+          <div class="text-caption text-medium-emphasis">Seu lab Vue</div>
+        </div>
+      </div>
+    </div>
 
+    <v-divider v-if="!navbarStore.rail"></v-divider>
+
+    <!-- Rotas agrupadas -->
+    <template v-for="group in routeGroups" :key="group.name">
+      <!-- Header do grupo (apenas quando não está em rail mode) -->
+      <v-list-subheader v-if="!navbarStore.rail" class="text-uppercase text-caption font-weight-bold mt-4">
+        {{ group.name }}
+      </v-list-subheader>
+
+      <!-- Divider visual quando em rail mode -->
+      <v-divider v-else class="my-2 mx-4"></v-divider>
+
+      <v-list density="compact" nav>
+        <v-tooltip
+          v-for="routeItem in group.routes"
+          :key="routeItem.path"
+          :text="routeItem.title"
+          location="end"
+          :disabled="!navbarStore.rail"
+        >
+          <template #activator="{ props }">
+            <v-list-item
+              v-bind="props"
+              :prepend-icon="routeItem.icon"
+              :title="routeItem.title"
+              :value="routeItem.name"
+              :active="currentRoute === routeItem.name"
+              class="drawer-item"
+              rounded="xl"
+              @click="navigateTo(routeItem.path)"
+            >
+            </v-list-item>
+          </template>
+        </v-tooltip>
+      </v-list>
+    </template>
+
+    <!-- Botão de toggle no rodapé -->
     <template #append>
       <v-divider></v-divider>
       <div class="pa-2">
-        <v-btn
-          icon
-          variant="text"
-          block
-          @click.stop="navbarStore.toggleRail()"
-        >
-          <v-icon>
-            {{ navbarStore.rail ? 'mdi-chevron-right' : 'mdi-chevron-left' }}
-          </v-icon>
-        </v-btn>
+        <v-tooltip :text="navbarStore.rail ? 'Expandir menu' : 'Recolher menu'" location="end">
+          <template #activator="{ props }">
+            <v-btn
+              v-bind="props"
+              icon
+              variant="text"
+              size="small"
+              @click.stop="navbarStore.toggleRail()"
+            >
+              <v-icon size="20">
+                {{ navbarStore.rail ? 'mdi-chevron-right' : 'mdi-chevron-left' }}
+              </v-icon>
+            </v-btn>
+          </template>
+        </v-tooltip>
       </div>
     </template>
   </v-navigation-drawer>
@@ -66,12 +100,21 @@ function navigateTo(path: string) {
 }
 
 .drawer-item {
-  margin: 4px 8px;
-  border-radius: 8px;
-  transition: all 0.2s;
+  margin: 2px 8px;
+  transition: all 0.2s ease;
 }
 
 .drawer-item:hover {
   background-color: rgba(var(--v-theme-primary), 0.08);
+}
+
+.drawer-item.v-list-item--active {
+  background-color: rgba(var(--v-theme-primary), 0.12);
+  color: rgb(var(--v-theme-primary));
+  font-weight: 600;
+}
+
+.drawer-item.v-list-item--active :deep(.v-icon) {
+  color: rgb(var(--v-theme-primary));
 }
 </style>
