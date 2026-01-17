@@ -32,18 +32,10 @@ const isTooltipDisabled = ref(false)
 
         <!-- Seção de Introdução -->
         <v-card class="mb-6" elevation="2">
-          <v-card-title class="text-h5">O que são Custom Directives?</v-card-title>
-          <v-card-text>
-            <p class="mb-4">
-              Custom Directives são uma forma de reutilizar lógica que envolve manipulação DOM de
-              baixo nível. Elas permitem que você crie atributos personalizados que podem ser
-              aplicados a elementos HTML.
-            </p>
-            <v-alert type="info" variant="tonal">
-              <strong>Exemplo:</strong> Em vez de usar <code>&lt;v-tooltip&gt;</code>, você pode
-              usar <code>v-h-tooltip="text"</code> diretamente em qualquer elemento!
-            </v-alert>
-          </v-card-text>
+          <v-alert type="info" variant="tonal">
+            Em vez de usar <code>&lt;v-tooltip&gt;</code>, você pode usar
+            <code>v-h-tooltip="text"</code> diretamente em qualquer elemento!
+          </v-alert>
         </v-card>
 
         <!-- Seção de Exemplos -->
@@ -222,7 +214,7 @@ const isTooltipDisabled = ref(false)
                         showOnOverflow: true,
                       }"
                       class="text-truncate pa-3 bg-blue-lighten-5 rounded"
-                      style="max-width: 250px"
+                      style="max-width: 300px"
                     >
                       Este é um texto muito longo que vai ser truncado com ellipsis...
                     </div>
@@ -243,9 +235,7 @@ const isTooltipDisabled = ref(false)
               <v-col cols="12" md="6">
                 <v-card variant="tonal" color="grey-lighten-4" class="pa-4">
                   <p class="text-caption mb-2">Código:</p>
-                  <pre
-                    class="code-block"
-                  ><code>&lt;div
+                  <pre class="code-block"><code>&lt;div
   v-h-tooltip="{
     text: 'Truncado!',
     showOnOverflow: true
@@ -293,9 +283,7 @@ const isTooltipDisabled = ref(false)
               <v-col cols="12" md="6">
                 <v-card variant="tonal" color="grey-lighten-4" class="pa-4">
                   <p class="text-caption mb-2">Código:</p>
-                  <pre
-                    class="code-block"
-                  ><code>const isDisabled = ref(false)
+                  <pre class="code-block"><code>const isDisabled = ref(false)
 
 &lt;v-btn v-h-tooltip="{
   text: 'Tooltip',
@@ -334,9 +322,7 @@ const isTooltipDisabled = ref(false)
               <v-col cols="12" md="6">
                 <v-card variant="tonal" color="grey-lighten-4" class="pa-4">
                   <p class="text-caption mb-2">Código:</p>
-                  <pre
-                    class="code-block"
-                  ><code>&lt;v-btn v-h-tooltip.bottom="{
+                  <pre class="code-block"><code>&lt;v-btn v-h-tooltip.bottom="{
   text: 'Tooltip!',
   maxLength: 5
 }"&gt;
