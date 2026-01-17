@@ -157,16 +157,20 @@ const isTooltipDisabled = ref(false)
                     :min="5"
                     :max="70"
                     :step="5"
-                    label="MaxLength"
+                    :label="`MaxLength ${maxLengthValue}`"
                     thumb-label
                     class="mb-4"
                   ></v-slider>
 
                   <div class="d-flex flex-column gap-3">
-                    <v-chip v-h-tooltip="tooltipWithMaxLength" color="success" class="text-wrap">
-                      {{ longText }}
-                    </v-chip>
-
+                    <div>
+                      <v-chip v-h-tooltip="tooltipWithMaxLength" color="success" class="text-wrap">
+                        {{ longText }}
+                      </v-chip>
+                      <span>
+                        {{ longText.length }}
+                      </span>
+                    </div>
                     <v-chip v-h-tooltip="tooltipWithMaxLength" color="warning" class="text-wrap">
                       {{ shortText }}
                     </v-chip>
@@ -174,9 +178,9 @@ const isTooltipDisabled = ref(false)
 
                   <v-alert type="success" variant="tonal" class="mt-4">
                     <small>
-                      <strong>Texto longo:</strong> {{ longText.length }} caracteres<br>
-                      <strong>Texto curto:</strong> {{ shortText.length }} caracteres<br>
-                      <strong>MaxLength atual:</strong> {{ maxLengthValue }}<br><br>
+                      <strong>Texto longo:</strong> {{ longText.length }} caracteres<br />
+                      <strong>Texto curto:</strong> {{ shortText.length }} caracteres<br />
+                      <strong>MaxLength atual:</strong> {{ maxLengthValue }}<br /><br />
                       Tooltip só aparece se: <code>tamanho do texto > maxLength</code>
                     </small>
                   </v-alert>
@@ -219,9 +223,9 @@ const isTooltipDisabled = ref(false)
                         truncatedOnly: true,
                       }"
                       class="pa-3 bg-blue-lighten-5 rounded"
-                      style="max-width: 300px"
+                      style="max-width: 250px"
                     >
-                      Este é um texto muito longo que vai ser truncado com ellipsis...
+                      Este é um texto muito longo que vai ser truncado com ellipsis
                     </div>
 
                     <div
@@ -262,7 +266,9 @@ const isTooltipDisabled = ref(false)
                   <p class="text-caption text-success">
                     ✅ A directive aplica os estilos automaticamente!
                   </p>
-                  <p class="text-caption text-success">✅ Framework-agnostic (funciona em qualquer projeto)</p>
+                  <p class="text-caption text-success">
+                    ✅ Framework-agnostic (funciona em qualquer projeto)
+                  </p>
                   <p class="text-caption text-success">
                     ✅ Restaura estilos originais quando desmontado
                   </p>

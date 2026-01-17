@@ -2,7 +2,7 @@ import type { RouteInfo, RouteGroup } from '@/types/route'
 import HomePage from '@/views/HomePage.vue'
 import Login from '@/views/Login.vue'
 import ComponentsPlayground from '@/views/ComponentsPlayground.vue'
-import Page1 from '@/views/Page1.vue'
+import CustomDirectivesPage from '@/views/CustomDirectivesPage.vue'
 
 /**
  * Configuração centralizada de rotas
@@ -35,10 +35,10 @@ export const routesConfig: RouteInfo[] = [
   {
     path: '/page1',
     name: 'page1',
-    title: 'Page 01',
+    title: 'Custom Directives - Tooltip',
     description: 'Testando custom directives',
     icon: 'mdi-tooltip-text',
-    component: Page1,
+    component: CustomDirectivesPage,
     showInHome: true,
     category: 'playground',
   },
