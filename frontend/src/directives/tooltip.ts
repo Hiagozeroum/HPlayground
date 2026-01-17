@@ -3,20 +3,42 @@ import type { Directive, DirectiveBinding } from 'vue'
 /**
  * Custom Directive para Tooltips
  *
- * Uso básico:
+ * Uso básico (string):
  * <button v-h-tooltip="'Texto do tooltip'">Hover me</button>
+ *
+ * Uso avançado (objeto):
+ * <button v-h-tooltip="{ text: 'Tooltip', maxLength: 10 }">Texto longo</button>
  *
  * Com modifiers para posição:
  * <button v-h-tooltip.top="'Texto'">Top</button>
  * <button v-h-tooltip.bottom="'Texto'">Bottom</button>
  * <button v-h-tooltip.left="'Texto'">Left</button>
  * <button v-h-tooltip.right="'Texto'">Right</button>
+ *
+ * Opções disponíveis:
+ * - text: string - Texto do tooltip
+ * - maxLength: number - Mostra tooltip apenas se o conteúdo do elemento tiver mais caracteres que este valor
+ * - truncatedOnly: boolean - Aplica estilos de truncamento e mostra tooltip apenas quando o texto está truncado
+ * - disabled: boolean - Desabilita o tooltip
  */
+
+interface TooltipOptions {
+  text: string
+  maxLength?: number
+  truncatedOnly?: boolean
+  disabled?: boolean
+}
 
 interface TooltipElement extends HTMLElement {
   __tooltip?: HTMLDivElement
   __showTooltip?: () => void
   __hideTooltip?: () => void
+  __tooltipOptions?: TooltipOptions
+  __originalStyles?: {
+    whiteSpace: string
+    overflow: string
+    textOverflow: string
+  }
 }
 
 function getPosition(
@@ -85,8 +107,58 @@ function positionTooltip(el: TooltipElement, tooltip: HTMLDivElement, position: 
   tooltip.style.left = `${left}px`
 }
 
+function applyTruncateStyles(el: TooltipElement) {
+  // Salva os estilos originais antes de modificar
+  if (!el.__originalStyles) {
+    el.__originalStyles = {
+      whiteSpace: el.style.whiteSpace,
+      overflow: el.style.overflow,
+      textOverflow: el.style.textOverflow,
+    }
+  }
+
+  // Aplica os estilos de truncamento
+  el.style.whiteSpace = 'nowrap'
+  el.style.overflow = 'hidden'
+  el.style.textOverflow = 'ellipsis'
+}
+
+function removeTruncateStyles(el: TooltipElement) {
+  // Restaura os estilos originais
+  if (el.__originalStyles) {
+    el.style.whiteSpace = el.__originalStyles.whiteSpace
+    el.style.overflow = el.__originalStyles.overflow
+    el.style.textOverflow = el.__originalStyles.textOverflow
+    delete el.__originalStyles
+  }
+}
+
+function shouldShowTooltip(el: TooltipElement): boolean {
+  const options = el.__tooltipOptions
+  if (!options || options.disabled) return false
+
+  // Verifica maxLength
+  if (options.maxLength !== undefined) {
+    const elementText = el.textContent || ''
+    if (elementText.trim().length <= options.maxLength) {
+      return false
+    }
+  }
+
+  // Verifica overflow (truncatedOnly)
+  if (options.truncatedOnly) {
+    const isOverflowing =
+      el.scrollWidth > el.clientWidth || el.scrollHeight > el.clientHeight
+    if (!isOverflowing) {
+      return false
+    }
+  }
+
+  return true
+}
+
 function showTooltip(el: TooltipElement) {
-  if (el.__tooltip) {
+  if (el.__tooltip && shouldShowTooltip(el)) {
     const position = el.__tooltip.getAttribute('data-position') || 'top'
     positionTooltip(el, el.__tooltip, position)
     el.__tooltip.style.opacity = '1'
@@ -99,15 +171,32 @@ function hideTooltip(el: TooltipElement) {
   }
 }
 
-export const vHTooltip: Directive<TooltipElement, string> = {
-  mounted(el: TooltipElement, binding: DirectiveBinding<string>) {
-    const text = binding.value
-    if (!text) return
+function parseBinding(binding: DirectiveBinding<string | TooltipOptions>): TooltipOptions {
+  // Se for string, converte para objeto
+  if (typeof binding.value === 'string') {
+    return { text: binding.value }
+  }
+  // Se for objeto, retorna como está
+  return binding.value
+}
+
+export const vHTooltip: Directive<TooltipElement, string | TooltipOptions> = {
+  mounted(el: TooltipElement, binding: DirectiveBinding<string | TooltipOptions>) {
+    const options = parseBinding(binding)
+    if (!options.text) return
+
+    // Salva as opções no elemento para validações futuras
+    el.__tooltipOptions = options
 
     const position = getPosition(binding.modifiers)
 
+    // Aplica estilos de truncamento se necessário
+    if (options.truncatedOnly) {
+      applyTruncateStyles(el)
+    }
+
     // Cria o tooltip
-    el.__tooltip = createTooltip(el, text, position)
+    el.__tooltip = createTooltip(el, options.text, position)
 
     // Define funções para mostrar/esconder
     el.__showTooltip = () => showTooltip(el)
@@ -119,20 +208,43 @@ export const vHTooltip: Directive<TooltipElement, string> = {
     el.addEventListener('focus', el.__showTooltip)
     el.addEventListener('blur', el.__hideTooltip)
 
-    // Adiciona estilo para indicar que tem tooltip
-    el.style.cursor = 'pointer'
+    // Adiciona estilo para indicar que tem tooltip (se não estiver desabilitado)
+    if (!options.disabled) {
+      el.style.cursor = 'pointer'
+    }
   },
 
-  updated(el: TooltipElement, binding: DirectiveBinding<string>) {
-    const text = binding.value
-    if (!text || !el.__tooltip) return
+  updated(el: TooltipElement, binding: DirectiveBinding<string | TooltipOptions>) {
+    const options = parseBinding(binding)
+    if (!options.text || !el.__tooltip) return
+
+    const oldOptions = el.__tooltipOptions
+
+    // Atualiza as opções
+    el.__tooltipOptions = options
+
+    // Gerencia estilos de truncamento
+    if (options.truncatedOnly && !oldOptions?.truncatedOnly) {
+      // Ativou truncatedOnly
+      applyTruncateStyles(el)
+    } else if (!options.truncatedOnly && oldOptions?.truncatedOnly) {
+      // Desativou truncatedOnly
+      removeTruncateStyles(el)
+    }
 
     // Atualiza o texto do tooltip
-    el.__tooltip.textContent = text
+    el.__tooltip.textContent = options.text
 
     // Atualiza a posição se o modifier mudou
     const position = getPosition(binding.modifiers)
     el.__tooltip.setAttribute('data-position', position)
+
+    // Atualiza o cursor
+    if (options.disabled) {
+      el.style.cursor = ''
+    } else {
+      el.style.cursor = 'pointer'
+    }
   },
 
   beforeUnmount(el: TooltipElement) {
@@ -151,9 +263,13 @@ export const vHTooltip: Directive<TooltipElement, string> = {
       el.__tooltip.parentNode.removeChild(el.__tooltip)
     }
 
+    // Remove estilos de truncamento
+    removeTruncateStyles(el)
+
     // Limpa as referências
     delete el.__tooltip
     delete el.__showTooltip
     delete el.__hideTooltip
+    delete el.__tooltipOptions
   },
 }
