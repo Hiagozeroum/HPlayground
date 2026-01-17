@@ -1,33 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from '@/views/HomePage.vue'
-import Login from '@/views/Login.vue'
-import ComponentsPlayground from '@/views/ComponentsPlayground.vue'
-import Page1 from '@/views/Page1.vue'
+import { routesConfig } from '@/config/routes'
 
+/**
+ * Vue Router configurado a partir do config centralizado
+ * As rotas são importadas de @/config/routes.ts para evitar duplicação
+ */
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomePage,
+  routes: routesConfig.map((route) => ({
+    path: route.path,
+    name: route.name,
+    component: route.component,
+    meta: {
+      title: route.title,
+      description: route.description,
+      icon: route.icon,
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
-    },
-    {
-      path: '/components-playground',
-      name: 'components-playground',
-      component: ComponentsPlayground,
-    },
-    {
-      path: '/page1',
-      name: 'page1',
-      component: Page1,
-    },
-  ],
+  })),
 })
 
 export default router

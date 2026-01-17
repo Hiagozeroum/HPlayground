@@ -12,7 +12,7 @@ import { defineStore } from 'pinia'
 export const useNavbarStore = defineStore('navbar', () => {
   // State
   const drawer = ref(false)
-  const rail = ref(false) // Modo miniatura do drawer
+  const rail = ref(false) // false = expandido, true = miniatura
   const title = ref('HPlayground')
   const showNavbar = ref(true)
 

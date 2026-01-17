@@ -3,15 +3,15 @@ import '@mdi/font/css/materialdesignicons.css'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
-import { customTheme } from '@/config/theme'
+import { darkTheme } from '@/config/theme'
 
 export default createVuetify({
   components,
   directives,
   theme: {
-    defaultTheme: 'customTheme',
+    defaultTheme: 'darkTheme',
     themes: {
-      customTheme,
+      darkTheme,
     },
   },
   icons: {
