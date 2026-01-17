@@ -11,7 +11,7 @@ function goHome() {
 </script>
 
 <template>
-  <v-app-bar flat elevation="0" class="app-bar" color="surface">
+  <v-app-bar flat elevation="2" class="app-bar">
     <v-app-bar-nav-icon variant="text" @click="navbarStore.toggleRail"></v-app-bar-nav-icon>
 
     <v-toolbar-title>
@@ -31,17 +31,20 @@ function goHome() {
 
 <style scoped>
 .app-bar {
-  border-bottom: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+  background: linear-gradient(135deg, #1F1F23 0%, #1A1A1F 100%) !important;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 .logo-container {
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
   user-select: none;
   width: fit-content;
 }
 
 .logo-container:hover {
-  opacity: 0.7;
+  opacity: 0.8;
+  transform: translateY(-1px);
 }
 </style>

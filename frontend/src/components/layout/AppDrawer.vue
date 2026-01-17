@@ -96,7 +96,8 @@ function navigateTo(path: string) {
 
 <style scoped>
 .app-drawer {
-  border-right: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+  background: linear-gradient(180deg, #1F1F23 0%, #1A1A1F 100%) !important;
+  border-right: 1px solid rgba(139, 92, 246, 0.1);
 }
 
 .drawer-item {
@@ -105,16 +106,17 @@ function navigateTo(path: string) {
 }
 
 .drawer-item:hover {
-  background-color: rgba(var(--v-theme-primary), 0.08);
+  background-color: rgba(139, 92, 246, 0.1) !important;
 }
 
 .drawer-item.v-list-item--active {
-  background-color: rgba(var(--v-theme-primary), 0.12);
-  color: rgb(var(--v-theme-primary));
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%) !important;
+  border-left: 3px solid rgb(139, 92, 246);
+  color: rgb(229, 229, 229);
   font-weight: 600;
 }
 
 .drawer-item.v-list-item--active :deep(.v-icon) {
-  color: rgb(var(--v-theme-primary));
+  color: rgb(139, 92, 246);
 }
 </style>
