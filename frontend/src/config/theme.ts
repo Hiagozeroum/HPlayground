@@ -34,27 +34,39 @@ export const customTheme: ThemeDefinition = {
 }
 
 /**
- * Tema dark - você pode alternar entre temas programaticamente
- * Exemplo: useTheme().global.name.value = 'darkTheme'
+ * Tema dark moderno - Similar ao ChatGPT/Claude
  */
 export const darkTheme: ThemeDefinition = {
   dark: true,
   colors: {
-    primary: '#2196F3',
-    secondary: '#424242',
-    accent: '#FF4081',
-    error: '#FF5252',
-    info: '#2196F3',
-    success: '#4CAF50',
-    warning: '#FB8C00',
-    background: '#121212',
-    surface: '#1E1E1E',
+    // Cores principais com tons de roxo
+    primary: '#8B5CF6', // Roxo vibrante
+    secondary: '#6366F1', // Indigo
+    accent: '#A78BFA', // Roxo claro
+    error: '#EF4444',
+    info: '#3B82F6',
+    success: '#10B981',
+    warning: '#F59E0B',
+
+    // Backgrounds escuros modernos
+    background: '#0F0F0F', // Quase preto
+    surface: '#1A1A1A', // Cinza muito escuro
+    'surface-bright': '#212121', // Um pouco mais claro
     'surface-variant': '#2C2C2C',
-    'on-surface': '#FFFFFF',
+
+    // Navbar e Drawer com cor
+    'navbar-bg': '#1F1F23', // Cinza escuro levemente roxo
+    'drawer-bg': '#1F1F23',
+
+    // Textos
+    'on-surface': '#E5E5E5',
+    'on-surface-variant': '#A0A0A0',
     'on-primary': '#FFFFFF',
     'on-secondary': '#FFFFFF',
-    'custom-purple': '#BA68C8',
-    'custom-teal': '#26A69A',
-    'custom-orange': '#FFB74D',
+
+    // Cores customizadas
+    'custom-purple': '#A78BFA',
+    'custom-teal': '#14B8A6',
+    'custom-orange': '#F97316',
   },
 }
