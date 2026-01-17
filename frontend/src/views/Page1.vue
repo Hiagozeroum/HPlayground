@@ -155,7 +155,7 @@ const isTooltipDisabled = ref(false)
                   <v-slider
                     v-model="maxLengthValue"
                     :min="5"
-                    :max="50"
+                    :max="70"
                     :step="5"
                     label="MaxLength"
                     thumb-label
@@ -174,8 +174,10 @@ const isTooltipDisabled = ref(false)
 
                   <v-alert type="success" variant="tonal" class="mt-4">
                     <small>
-                      O primeiro chip (texto longo) mostra tooltip. O segundo (texto curto) NÃO
-                      mostra!
+                      <strong>Texto longo:</strong> {{ longText.length }} caracteres<br>
+                      <strong>Texto curto:</strong> {{ shortText.length }} caracteres<br>
+                      <strong>MaxLength atual:</strong> {{ maxLengthValue }}<br><br>
+                      Tooltip só aparece se: <code>tamanho do texto > maxLength</code>
                     </small>
                   </v-alert>
                 </v-card>
