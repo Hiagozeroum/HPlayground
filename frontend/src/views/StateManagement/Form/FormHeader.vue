@@ -11,13 +11,13 @@
         <div class="flex items-center gap-2">
           <span
             class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold"
-            :class="form?.isValid ? 'bg-green-500' : 'bg-red-500'"
+            :class="isValid ? 'bg-green-500' : 'bg-red-500'"
           >
-            {{ form?.isValid ? '✓ Válido' : '✗ Inválido' }}
+            {{ isValid ? '✓ Válido' : '✗ Inválido' }}
           </span>
 
           <span
-            v-if="form?.hasChanges"
+            v-if="hasChanges"
             class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-yellow-500"
           >
             Modificado
@@ -36,5 +36,6 @@
 import { useFormContext } from './useFormContext'
 
 // Consume o contexto fornecido pelo FormExample
-const form = useFormContext()
+// Desestruturação deixa explícito o que está sendo usado
+const { isValid, hasChanges } = useFormContext()!
 </script>

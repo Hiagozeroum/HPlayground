@@ -6,17 +6,17 @@
     </label>
 
     <input
-      :value="form?.formData.name"
+      :value="formData.name"
       @input="handleInput"
-      @blur="form?.validateName()"
+      @blur="validateName"
       type="text"
       placeholder="Digite seu nome"
       class="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-      :class="form?.errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'"
+      :class="errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'"
     />
 
-    <p v-if="form?.errors.name" class="mt-1 text-xs text-red-600">
-      {{ form.errors.name }}
+    <p v-if="errors.name" class="mt-1 text-xs text-red-600">
+      {{ errors.name }}
     </p>
   </div>
 </template>
@@ -24,10 +24,11 @@
 <script setup lang="ts">
 import { useFormContext } from './useFormContext'
 
-const form = useFormContext()
+// Desestruturação deixa explícito o que está sendo usado
+const { formData, errors, updateField, validateName } = useFormContext()!
 
 function handleInput(event: Event) {
   const target = event.target as HTMLInputElement
-  form?.updateField('name', target.value)
+  updateField('name', target.value)
 }
 </script>

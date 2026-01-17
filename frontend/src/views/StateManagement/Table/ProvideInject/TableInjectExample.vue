@@ -5,7 +5,7 @@
         Usando Provide/Inject (createInjectionState)
       </span>
       <button
-        @click="table?.clearFilters()"
+        @click="clearFilters()"
         class="text-xs px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
       >
         Limpar Filtros
@@ -16,35 +16,35 @@
     <div class="grid grid-cols-4 gap-2 mb-4">
       <div class="bg-purple-50 dark:bg-purple-900/20 p-2 rounded text-center">
         <div class="text-xs text-gray-600 dark:text-gray-400">Total</div>
-        <div class="text-lg font-bold">{{ table?.stats.total }}</div>
+        <div class="text-lg font-bold">{{ stats.total }}</div>
       </div>
       <div class="bg-green-50 dark:bg-green-900/20 p-2 rounded text-center">
         <div class="text-xs text-gray-600 dark:text-gray-400">Disponível</div>
-        <div class="text-lg font-bold text-green-600">{{ table?.stats.available }}</div>
+        <div class="text-lg font-bold text-green-600">{{ stats.available }}</div>
       </div>
       <div class="bg-yellow-50 dark:bg-yellow-900/20 p-2 rounded text-center">
         <div class="text-xs text-gray-600 dark:text-gray-400">Baixo</div>
-        <div class="text-lg font-bold text-yellow-600">{{ table?.stats.lowStock }}</div>
+        <div class="text-lg font-bold text-yellow-600">{{ stats.lowStock }}</div>
       </div>
       <div class="bg-red-50 dark:bg-red-900/20 p-2 rounded text-center">
         <div class="text-xs text-gray-600 dark:text-gray-400">Sem estoque</div>
-        <div class="text-lg font-bold text-red-600">{{ table?.stats.outOfStock }}</div>
+        <div class="text-lg font-bold text-red-600">{{ stats.outOfStock }}</div>
       </div>
     </div>
 
     <!-- Filters -->
     <div class="grid grid-cols-2 gap-3 mb-4">
       <input
-        :value="table?.filters.search"
-        @input="e => table?.updateFilter('search', (e.target as HTMLInputElement).value)"
+        :value="filters.search"
+        @input="e => updateFilter('search', (e.target as HTMLInputElement).value)"
         type="text"
         placeholder="Buscar produto..."
         class="px-3 py-2 border rounded text-sm"
       />
 
       <select
-        :value="table?.filters.category"
-        @change="e => table?.updateFilter('category', (e.target as HTMLSelectElement).value)"
+        :value="filters.category"
+        @change="e => updateFilter('category', (e.target as HTMLSelectElement).value)"
         class="px-3 py-2 border rounded text-sm"
       >
         <option value="">Todas as categorias</option>
@@ -61,20 +61,20 @@
       <table class="w-full text-sm">
         <thead class="bg-gray-100 dark:bg-gray-700">
           <tr>
-            <th class="p-2 text-left cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600" @click="table?.toggleSort('name')">
-              Nome {{ table?.sort.field === 'name' ? (table?.sort.direction === 'asc' ? '↑' : '↓') : '' }}
+            <th class="p-2 text-left cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600" @click="toggleSort('name')">
+              Nome {{ sort.field === 'name' ? (sort.direction === 'asc' ? '↑' : '↓') : '' }}
             </th>
-            <th class="p-2 text-left cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600" @click="table?.toggleSort('price')">
-              Preço {{ table?.sort.field === 'price' ? (table?.sort.direction === 'asc' ? '↑' : '↓') : '' }}
+            <th class="p-2 text-left cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600" @click="toggleSort('price')">
+              Preço {{ sort.field === 'price' ? (sort.direction === 'asc' ? '↑' : '↓') : '' }}
             </th>
-            <th class="p-2 text-left cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600" @click="table?.toggleSort('stock')">
-              Estoque {{ table?.sort.field === 'stock' ? (table?.sort.direction === 'asc' ? '↑' : '↓') : '' }}
+            <th class="p-2 text-left cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600" @click="toggleSort('stock')">
+              Estoque {{ sort.field === 'stock' ? (sort.direction === 'asc' ? '↑' : '↓') : '' }}
             </th>
           </tr>
         </thead>
         <tbody>
           <tr
-            v-for="product in table?.paginatedProducts"
+            v-for="product in paginatedProducts"
             :key="product.id"
             class="border-b dark:border-gray-700"
           >
@@ -100,19 +100,19 @@
     <!-- Pagination -->
     <div class="flex items-center justify-between text-sm">
       <div>
-        Página {{ table?.pagination.currentPage }} de {{ table?.totalPages }}
+        Página {{ pagination.currentPage }} de {{ totalPages }}
       </div>
       <div class="flex gap-2">
         <button
-          @click="table?.goToPage(table.pagination.currentPage - 1)"
-          :disabled="table?.pagination.currentPage === 1"
+          @click="goToPage(pagination.currentPage - 1)"
+          :disabled="pagination.currentPage === 1"
           class="px-3 py-1 border rounded disabled:opacity-50"
         >
           Anterior
         </button>
         <button
-          @click="table?.goToPage(table.pagination.currentPage + 1)"
-          :disabled="table?.pagination.currentPage === table?.totalPages"
+          @click="goToPage(pagination.currentPage + 1)"
+          :disabled="pagination.currentPage === totalPages"
           class="px-3 py-1 border rounded disabled:opacity-50"
         >
           Próxima
@@ -133,7 +133,19 @@ import { useProvideTableContext, useTableContext } from './useTableContext'
 useProvideTableContext()
 
 // Consumer: consome o contexto (normalmente em componentes filhos, mas aqui no mesmo para demonstração)
-const table = useTableContext()
+// Desestruturação deixa explícito o que está sendo usado
+const {
+  stats,
+  filters,
+  sort,
+  pagination,
+  paginatedProducts,
+  totalPages,
+  updateFilter,
+  toggleSort,
+  goToPage,
+  clearFilters
+} = useTableContext()!
 
 // Note: Não precisa de onUnmounted para limpar - é automático! ✨
 </script>

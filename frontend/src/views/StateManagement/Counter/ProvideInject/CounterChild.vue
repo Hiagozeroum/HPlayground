@@ -9,25 +9,25 @@
     <div class="mb-4">
       <p class="text-sm mb-2">Contexto injetado:</p>
       <div class="text-xl font-semibold text-purple-600 dark:text-purple-400">
-        {{ context?.count }}
+        {{ count }}
       </div>
     </div>
 
     <div class="flex gap-2">
       <button
-        @click="context?.decrement()"
+        @click="decrement()"
         class="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded text-sm transition-colors"
       >
         -
       </button>
       <button
-        @click="context?.increment()"
+        @click="increment()"
         class="px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded text-sm transition-colors"
       >
         +
       </button>
       <button
-        @click="context?.reset()"
+        @click="reset()"
         class="px-3 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded text-sm transition-colors"
       >
         Reset
@@ -44,5 +44,6 @@
 import { useCounterContext } from './useCounterContext'
 
 // Consome o contexto fornecido pelo componente ancestral
-const context = useCounterContext()
+// Desestruturação deixa explícito o que está sendo usado
+const { count, increment, decrement, reset } = useCounterContext()!
 </script>

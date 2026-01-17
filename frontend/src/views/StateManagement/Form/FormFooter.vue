@@ -6,8 +6,8 @@
 
     <div class="flex items-center justify-between">
       <button
-        @click="form?.reset()"
-        :disabled="!form?.hasChanges"
+        @click="reset"
+        :disabled="!hasChanges"
         class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Limpar
@@ -16,10 +16,10 @@
       <div class="flex gap-3">
         <button
           @click="handleSubmit"
-          :disabled="!form?.isValid || form?.isSubmitting"
+          :disabled="!isValid || isSubmitting"
           class="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
-          <span v-if="form?.isSubmitting">Enviando...</span>
+          <span v-if="isSubmitting">Enviando...</span>
           <span v-else>Enviar</span>
         </button>
       </div>
@@ -39,17 +39,18 @@
 import { ref } from 'vue'
 import { useFormContext } from './useFormContext'
 
-const form = useFormContext()
+// Desestruturação deixa explícito o que está sendo usado
+const { isValid, isSubmitting, hasChanges, submit, reset } = useFormContext()!
 const showSuccess = ref(false)
 
 async function handleSubmit() {
-  const success = await form?.submit()
+  const success = await submit()
 
   if (success) {
     showSuccess.value = true
     setTimeout(() => {
       showSuccess.value = false
-      form?.reset()
+      reset()
     }, 3000)
   }
 }

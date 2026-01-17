@@ -8,7 +8,7 @@
 
     <div class="mb-4">
       <p class="text-sm mb-2">Contexto fornecido aqui:</p>
-      <div class="text-2xl font-bold">{{ context.count }}</div>
+      <div class="text-2xl font-bold">{{ count }}</div>
     </div>
 
     <CounterChild />
@@ -24,5 +24,6 @@ import { useProvideCounterContext } from './useCounterContext'
 import CounterChild from './CounterChild.vue'
 
 // Fornece o contexto para todos os componentes descendentes
-const context = useProvideCounterContext()
+// Desestruturação deixa explícito o que está sendo usado
+const { count } = useProvideCounterContext()
 </script>
