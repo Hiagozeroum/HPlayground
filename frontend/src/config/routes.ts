@@ -3,6 +3,7 @@ import HomePage from '@/views/HomePage.vue'
 import Login from '@/views/Login.vue'
 import ComponentsPlayground from '@/views/ComponentsPlayground.vue'
 import CustomDirectivesPage from '@/views/CustomDirectivesPage.vue'
+import StateManagementIndex from '@/views/StateManagement/StateManagementIndex.vue'
 
 /**
  * Configuração centralizada de rotas
@@ -49,6 +50,16 @@ export const routesConfig: RouteInfo[] = [
     description: 'Área para testar e experimentar componentes Vue e Vuetify',
     icon: 'mdi-view-dashboard',
     component: ComponentsPlayground,
+    showInHome: true,
+    category: 'playground',
+  },
+  {
+    path: '/state-management',
+    name: 'state-management',
+    title: 'State Management',
+    description: 'Comparação de abordagens: Props/Emits, Provide/Inject e Pinia',
+    icon: 'mdi-state-machine',
+    component: StateManagementIndex,
     showInHome: true,
     category: 'playground',
   },
