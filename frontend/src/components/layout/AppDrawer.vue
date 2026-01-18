@@ -2,13 +2,31 @@
 import { useNavbarStore } from '@/stores/navbar'
 import { routeGroups } from '@/config/routes'
 import { useRouter, useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const navbarStore = useNavbarStore()
 const router = useRouter()
 const route = useRoute()
 
 const currentRoute = computed(() => route.name)
+
+// Índices de todos os painéis
+const allPanelIndices = routeGroups.map((_, i) => i)
+
+// Controla quais painéis estão expandidos (todos abertos por padrão)
+const expandedPanels = ref<number[]>([...allPanelIndices])
+
+// Verifica se todos os painéis estão expandidos
+const allExpanded = computed(() => expandedPanels.value.length === routeGroups.length)
+
+// Expande ou recolhe todos os painéis
+function toggleAllPanels() {
+  if (allExpanded.value) {
+    expandedPanels.value = []
+  } else {
+    expandedPanels.value = [...allPanelIndices]
+  }
+}
 
 function navigateTo(path: string) {
   router.push(path)
@@ -30,30 +48,30 @@ function navigateTo(path: string) {
 
     <v-divider v-if="!navbarStore.rail"></v-divider>
 
-    <!-- Rotas agrupadas -->
-    <template v-for="group in routeGroups" :key="group.name">
-      <!-- Header do grupo (apenas quando não está em rail mode) -->
-      <v-list-subheader
-        v-if="!navbarStore.rail"
-        class="text-uppercase text-caption font-weight-bold ml-3 mt-4"
+    <!-- Rotas agrupadas com Expansion Panels -->
+    <v-expansion-panels
+      v-if="!navbarStore.rail"
+      v-model="expandedPanels"
+      multiple
+      variant="accordion"
+      class="drawer-panels"
+    >
+      <v-expansion-panel
+        v-for="(group, index) in routeGroups"
+        :key="group.name"
+        :value="index"
+        class="drawer-panel"
       >
-        {{ group.name }}
-      </v-list-subheader>
+        <v-expansion-panel-title class="panel-title">
+          <v-icon :icon="group.icon" size="20" class="mr-3"></v-icon>
+          <span class="text-body-2 font-weight-medium">{{ group.name }}</span>
+        </v-expansion-panel-title>
 
-      <!-- Divider visual quando em rail mode -->
-      <v-divider v-else class="my-2 mx-4"></v-divider>
-
-      <v-list density="compact" nav>
-        <v-tooltip
-          v-for="routeItem in group.routes"
-          :key="routeItem.path"
-          :text="routeItem.title"
-          location="end"
-          :disabled="!navbarStore.rail"
-        >
-          <template #activator="{ props }">
+        <v-expansion-panel-text class="panel-content">
+          <v-list density="compact" nav class="pa-0">
             <v-list-item
-              v-bind="props"
+              v-for="routeItem in group.routes"
+              :key="routeItem.path"
               :prepend-icon="routeItem.icon"
               :title="routeItem.title"
               :value="routeItem.name"
@@ -63,30 +81,59 @@ function navigateTo(path: string) {
               @click="navigateTo(routeItem.path)"
             >
             </v-list-item>
-          </template>
-        </v-tooltip>
-      </v-list>
+          </v-list>
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+    </v-expansion-panels>
+
+    <!-- Rail mode: lista compacta com tooltips -->
+    <template v-else>
+      <template v-for="group in routeGroups" :key="group.name">
+        <v-divider class="my-2 mx-4"></v-divider>
+        <v-list density="compact" nav>
+          <v-list-item
+            v-for="routeItem in group.routes"
+            :key="routeItem.path"
+            v-h-tooltip.right="routeItem.title"
+            :prepend-icon="routeItem.icon"
+            :value="routeItem.name"
+            :active="currentRoute === routeItem.name"
+            class="drawer-item"
+            rounded="xl"
+            @click="navigateTo(routeItem.path)"
+          >
+          </v-list-item>
+        </v-list>
+      </template>
     </template>
 
-    <!-- Botão de toggle no rodapé -->
+    <!-- Botões de toggle no rodapé -->
     <template #append>
       <v-divider></v-divider>
-      <div class="pa-2">
-        <v-tooltip :text="navbarStore.rail ? 'Expandir menu' : 'Recolher menu'" location="end">
-          <template #activator="{ props }">
-            <v-btn
-              v-bind="props"
-              icon
-              variant="text"
-              size="small"
-              @click.stop="navbarStore.toggleRail()"
-            >
-              <v-icon size="20">
-                {{ navbarStore.rail ? 'mdi-chevron-right' : 'mdi-chevron-left' }}
-              </v-icon>
-            </v-btn>
-          </template>
-        </v-tooltip>
+      <div class="d-flex align-center justify-space-between pa-2">
+        <v-btn
+          v-h-tooltip.right="navbarStore.rail ? 'Expandir menu' : 'Recolher menu'"
+          icon
+          variant="text"
+          size="small"
+          @click.stop="navbarStore.toggleRail()"
+        >
+          <v-icon size="20">
+            {{ navbarStore.rail ? 'mdi-chevron-right' : 'mdi-chevron-left' }}
+          </v-icon>
+        </v-btn>
+        <v-btn
+          v-if="!navbarStore.rail"
+          v-h-tooltip.top="allExpanded ? 'Recolher grupos' : 'Expandir grupos'"
+          icon
+          variant="text"
+          size="small"
+          @click="toggleAllPanels"
+        >
+          <v-icon size="20">
+            {{ allExpanded ? 'mdi-unfold-less-horizontal' : 'mdi-unfold-more-horizontal' }}
+          </v-icon>
+        </v-btn>
       </div>
     </template>
   </v-navigation-drawer>
@@ -96,6 +143,36 @@ function navigateTo(path: string) {
 .app-drawer {
   background: linear-gradient(180deg, #1f1f23 0%, #1a1a1f 100%) !important;
   border-right: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+.drawer-panels {
+  background: transparent;
+}
+
+.drawer-panel {
+  background: transparent !important;
+}
+
+.drawer-panel :deep(.v-expansion-panel__shadow) {
+  display: none;
+}
+
+.panel-title {
+  min-height: 44px !important;
+  padding: 8px 16px !important;
+  background: transparent !important;
+}
+
+.panel-title:hover {
+  background: rgba(139, 92, 246, 0.05) !important;
+}
+
+.panel-content {
+  background: transparent !important;
+}
+
+.panel-content :deep(.v-expansion-panel-text__wrapper) {
+  padding: 0 8px 8px 8px !important;
 }
 
 .drawer-item {

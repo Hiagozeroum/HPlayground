@@ -1,5 +1,5 @@
 import { computed, ref } from 'vue'
-import { routesConfig } from '@/config/routes'
+import { routesConfig, routeGroups } from '@/config/routes'
 import type { RouteInfo } from '@/types/route'
 
 /**
@@ -28,6 +28,33 @@ export function useRoutes() {
     )
   })
 
+  // Agrupa rotas filtradas por categoria (para exibição na Home)
+  const filteredRouteGroups = computed(() => {
+    const query = searchQuery.value.toLowerCase().trim()
+
+    return routeGroups
+      .map((group) => {
+        // Se o nome do grupo bate com a busca, mostra todas as rotas visíveis do grupo
+        const groupNameMatches = query && group.name.toLowerCase().includes(query)
+
+        return {
+          ...group,
+          routes: group.routes.filter((r) => {
+            if (r.showInHome === false) return false
+            if (groupNameMatches) return true
+            if (!query) return true
+
+            return (
+              r.title.toLowerCase().includes(query) ||
+              r.description.toLowerCase().includes(query) ||
+              r.path.toLowerCase().includes(query)
+            )
+          }),
+        }
+      })
+      .filter((group) => group.routes.length > 0)
+  })
+
   function getRouteByName(name: string): RouteInfo | undefined {
     return routesConfig.find((route) => route.name === name)
   }
@@ -41,6 +68,7 @@ export function useRoutes() {
     allRoutes,
     visibleRoutes,
     filteredRoutes,
+    filteredRouteGroups,
     getRouteByName,
     clearSearch,
   }

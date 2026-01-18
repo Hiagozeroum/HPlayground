@@ -27,16 +27,6 @@ export const routesConfig: RouteInfo[] = [
     category: 'principal',
   },
   {
-    path: '/login',
-    name: 'login',
-    title: 'Login',
-    description: 'Página de autenticação de usuários',
-    icon: 'mdi-login',
-    component: Login,
-    showInHome: true,
-    category: 'autenticação',
-  },
-  {
     path: '/page1',
     name: 'page1',
     title: 'Custom Directives - Tooltip',
@@ -96,6 +86,16 @@ export const routesConfig: RouteInfo[] = [
     showInHome: false,
     category: 'estudos',
   },
+  {
+    path: '/login',
+    name: 'login',
+    title: 'Login',
+    description: 'Página de autenticação de usuários',
+    icon: 'mdi-login',
+    component: Login,
+    showInHome: true,
+    category: 'autenticação',
+  },
 ]
 
 /**
@@ -108,11 +108,6 @@ export const routeGroups: RouteGroup[] = [
     routes: routesConfig.filter((r) => r.category === 'principal'),
   },
   {
-    name: 'Autenticação',
-    icon: 'mdi-shield-account',
-    routes: routesConfig.filter((r) => r.category === 'autenticação'),
-  },
-  {
     name: 'Playground',
     icon: 'mdi-gamepad-variant',
     routes: routesConfig.filter((r) => r.category === 'playground'),
@@ -121,5 +116,10 @@ export const routeGroups: RouteGroup[] = [
     name: 'Estudos',
     icon: 'mdi-school',
     routes: routesConfig.filter((r) => r.category === 'estudos'),
+  },
+  {
+    name: 'Autenticação',
+    icon: 'mdi-shield-account',
+    routes: routesConfig.filter((r) => r.category === 'autenticação'),
   },
 ].filter((group) => group.routes.length > 0) // Remove grupos vazios

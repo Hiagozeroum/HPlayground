@@ -2,7 +2,7 @@
 import { useRoutes } from '@/composables/useRoutes'
 import { useRouter } from 'vue-router'
 
-const { searchQuery, filteredRoutes } = useRoutes()
+const { searchQuery, filteredRouteGroups } = useRoutes()
 const router = useRouter()
 
 function navigateTo(path: string) {
@@ -34,51 +34,53 @@ function navigateTo(path: string) {
       </v-col>
     </v-row>
 
-    <!-- Cards de rotas -->
+    <!-- Cards de rotas agrupadas -->
     <v-row class="justify-center mt-4">
       <v-col cols="12" md="10" lg="8">
-        <v-row>
-          <v-col v-for="route in filteredRoutes" :key="route.path" cols="12" sm="6" md="4">
-            <v-card
-              hover
-              class="route-card h-100"
-              elevation="0"
-              border
-              @click="navigateTo(route.path)"
-            >
-              <v-card-text class="pa-6">
-                <div class="d-flex align-center mb-3">
-                  <v-avatar
-                    :color="
-                      route.icon === 'mdi-home'
-                        ? 'primary'
-                        : route.icon === 'mdi-login'
-                          ? 'secondary'
-                          : 'accent'
-                    "
-                    size="48"
-                    class="mr-3"
-                  >
-                    <v-icon :icon="route.icon" size="28" color="white"></v-icon>
-                  </v-avatar>
-                  <div>
-                    <h3 class="text-h6 font-weight-bold">{{ route.title }}</h3>
+        <!-- Grupos de rotas -->
+        <template v-for="group in filteredRouteGroups" :key="group.name">
+          <div class="d-flex align-center mb-3 mt-6">
+            <v-icon :icon="group.icon" size="20" color="primary" class="mr-2"></v-icon>
+            <span class="text-subtitle-1 font-weight-medium text-medium-emphasis">
+              {{ group.name }}
+            </span>
+          </div>
+
+          <v-row>
+            <v-col v-for="route in group.routes" :key="route.path" cols="12" sm="6" md="4">
+              <v-card
+                hover
+                class="route-card h-100"
+                elevation="0"
+                border
+                @click="navigateTo(route.path)"
+              >
+                <v-card-text class="pa-6">
+                  <div class="d-flex align-center mb-3">
+                    <v-avatar color="primary" size="48" class="mr-3">
+                      <v-icon :icon="route.icon" size="28" color="white"></v-icon>
+                    </v-avatar>
+                    <div>
+                      <h3 class="text-h6 font-weight-bold">{{ route.title }}</h3>
+                    </div>
                   </div>
-                </div>
 
-                <p class="text-body-2 text-medium-emphasis mb-4">
-                  {{ route.description }}
-                </p>
+                  <p class="text-body-2 text-medium-emphasis mb-4">
+                    {{ route.description }}
+                  </p>
 
-                <v-chip size="small" variant="tonal" color="primary">
-                  {{ route.path }}
-                </v-chip>
-              </v-card-text>
-            </v-card>
-          </v-col>
+                  <v-chip size="small" variant="tonal" color="primary">
+                    {{ route.path }}
+                  </v-chip>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </template>
 
-          <!-- Mensagem quando não há resultados -->
-          <v-col v-if="filteredRoutes.length === 0" cols="12">
+        <!-- Mensagem quando não há resultados -->
+        <v-row v-if="filteredRouteGroups.length === 0">
+          <v-col cols="12">
             <v-alert type="info" variant="tonal" class="text-center">
               <v-icon icon="mdi-alert-circle" size="48" class="mb-2"></v-icon>
               <div>Nenhuma rota encontrada com "{{ searchQuery }}"</div>
