@@ -1,14 +1,16 @@
 <template>
-  <div class="form-fields p-6 space-y-4">
-    <div class="mb-3 text-xs font-mono bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded inline-block">
+  <v-card-text>
+    <v-chip size="x-small" color="demo-badge" label class="mb-4">
       FormFields.vue (Consumer - repassa para filhos via inject)
-    </div>
+    </v-chip>
 
-    <NameField />
-    <EmailField />
-    <AgeField />
-    <TermsField />
-  </div>
+    <div class="d-flex flex-column ga-4">
+      <NameField />
+      <EmailField />
+      <AgeField />
+      <TermsField />
+    </div>
+  </v-card-text>
 </template>
 
 <script setup lang="ts">

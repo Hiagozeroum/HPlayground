@@ -1,22 +1,22 @@
 <template>
-  <div class="parent bg-gray-50 dark:bg-gray-800 p-4 rounded">
+  <v-card color="demo-parent" variant="flat" class="pa-4 rounded">
     <div class="mb-3">
-      <span class="text-xs font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
-        CounterParent.vue
-      </span>
+      <v-chip size="small" color="demo-badge" label>
+        <span class="font-weight-medium text-caption">CounterParent.vue</span>
+      </v-chip>
     </div>
 
     <div class="mb-4">
-      <p class="text-sm mb-2">Acessando store diretamente:</p>
-      <div class="text-2xl font-bold">{{ counterStore.count }}</div>
+      <p class="text-body-2 mb-2">Acessando store diretamente:</p>
+      <div class="text-h4 font-weight-bold">{{ counterStore.count }}</div>
     </div>
 
     <CounterChild />
 
-    <div class="mt-3 text-xs text-gray-500">
-      💡 Nenhuma prop passada para o filho!
-    </div>
-  </div>
+    <p class="text-caption text-medium-emphasis mt-3">
+      Nenhuma prop passada para o filho!
+    </p>
+  </v-card>
 </template>
 
 <script setup lang="ts">

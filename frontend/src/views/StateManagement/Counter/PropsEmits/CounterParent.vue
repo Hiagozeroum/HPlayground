@@ -1,14 +1,14 @@
 <template>
-  <div class="parent bg-gray-50 dark:bg-gray-800 p-4 rounded">
+  <v-card color="demo-parent" variant="flat" class="pa-4 rounded">
     <div class="mb-3">
-      <span class="text-xs font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
-        CounterParent.vue
-      </span>
+      <v-chip size="small" color="demo-badge" label>
+        <span class="font-weight-medium text-caption">CounterParent.vue</span>
+      </v-chip>
     </div>
 
     <div class="mb-4">
-      <p class="text-sm mb-2">Estado gerenciado aqui:</p>
-      <div class="text-2xl font-bold">{{ count }}</div>
+      <p class="text-body-2 mb-2">Estado gerenciado aqui:</p>
+      <div class="text-h4 font-weight-bold">{{ count }}</div>
     </div>
 
     <CounterChild
@@ -17,7 +17,7 @@
       @decrement="handleDecrement"
       @reset="handleReset"
     />
-  </div>
+  </v-card>
 </template>
 
 <script setup lang="ts">

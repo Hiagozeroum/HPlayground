@@ -1,22 +1,22 @@
 <template>
-  <div class="parent bg-gray-50 dark:bg-gray-800 p-4 rounded">
+  <v-card color="demo-parent" variant="flat" class="pa-4 rounded">
     <div class="mb-3">
-      <span class="text-xs font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
-        CounterParent.vue (PROVIDER)
-      </span>
+      <v-chip size="small" color="demo-badge" label>
+        <span class="font-weight-medium text-caption">CounterParent.vue (PROVIDER)</span>
+      </v-chip>
     </div>
 
     <div class="mb-4">
-      <p class="text-sm mb-2">Contexto fornecido aqui:</p>
-      <div class="text-2xl font-bold">{{ count }}</div>
+      <p class="text-body-2 mb-2">Contexto fornecido aqui:</p>
+      <div class="text-h4 font-weight-bold">{{ count }}</div>
     </div>
 
     <CounterChild />
 
-    <div class="mt-3 text-xs text-gray-500">
-      💡 useProvideCounterContext() - fornece o contexto para a árvore
-    </div>
-  </div>
+    <p class="text-caption text-medium-emphasis mt-3">
+      useProvideCounterContext() - fornece o contexto para a árvore
+    </p>
+  </v-card>
 </template>
 
 <script setup lang="ts">

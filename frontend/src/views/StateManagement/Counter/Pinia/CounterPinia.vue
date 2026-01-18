@@ -1,28 +1,67 @@
 <template>
-  <div class="counter-example border border-gray-300 dark:border-gray-600 rounded-lg p-6">
-    <h3 class="text-lg font-semibold mb-4 text-purple-600 dark:text-purple-400">
+  <v-card elevation="2" class="h-100">
+    <v-card-title class="text-h6 text-primary">
       2. Pinia Store (Global State)
-    </h3>
+    </v-card-title>
 
-    <CounterParent />
+    <v-card-text>
+      <CounterParent />
 
-    <div class="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded border border-blue-200 dark:border-blue-800">
-      <p class="text-sm font-semibold mb-2">✅ Vantagens:</p>
-      <ul class="text-xs space-y-1 text-gray-700 dark:text-gray-300">
-        <li>• Acesso direto de qualquer componente</li>
-        <li>• Sem props drilling</li>
-        <li>• DevTools para debug</li>
-        <li>• Fácil de testar (mock da store)</li>
-      </ul>
+      <v-card variant="tonal" color="info" class="mt-4">
+        <v-card-text>
+          <p class="text-subtitle-2 font-weight-bold mb-2">Vantagens:</p>
+          <v-list density="compact" class="bg-transparent pa-0">
+            <v-list-item class="px-0 min-h-0">
+              <template #prepend>
+                <v-icon icon="mdi-check" color="success" size="small" class="mr-2" />
+              </template>
+              <v-list-item-title class="text-body-2">Acesso direto de qualquer componente</v-list-item-title>
+            </v-list-item>
+            <v-list-item class="px-0 min-h-0">
+              <template #prepend>
+                <v-icon icon="mdi-check" color="success" size="small" class="mr-2" />
+              </template>
+              <v-list-item-title class="text-body-2">Sem props drilling</v-list-item-title>
+            </v-list-item>
+            <v-list-item class="px-0 min-h-0">
+              <template #prepend>
+                <v-icon icon="mdi-check" color="success" size="small" class="mr-2" />
+              </template>
+              <v-list-item-title class="text-body-2">DevTools para debug</v-list-item-title>
+            </v-list-item>
+            <v-list-item class="px-0 min-h-0">
+              <template #prepend>
+                <v-icon icon="mdi-check" color="success" size="small" class="mr-2" />
+              </template>
+              <v-list-item-title class="text-body-2">Fácil de testar (mock da store)</v-list-item-title>
+            </v-list-item>
+          </v-list>
 
-      <p class="text-sm font-semibold mt-3 mb-2">❌ Desvantagens:</p>
-      <ul class="text-xs space-y-1 text-gray-700 dark:text-gray-300">
-        <li>• Acoplamento global</li>
-        <li>• Pode ser overkill para casos simples</li>
-        <li>• Precisa limpar estado ao desmontar (contexto local)</li>
-      </ul>
-    </div>
-  </div>
+          <p class="text-subtitle-2 font-weight-bold mt-4 mb-2">Desvantagens:</p>
+          <v-list density="compact" class="bg-transparent pa-0">
+            <v-list-item class="px-0 min-h-0">
+              <template #prepend>
+                <v-icon icon="mdi-close" color="error" size="small" class="mr-2" />
+              </template>
+              <v-list-item-title class="text-body-2">Acoplamento global</v-list-item-title>
+            </v-list-item>
+            <v-list-item class="px-0 min-h-0">
+              <template #prepend>
+                <v-icon icon="mdi-close" color="error" size="small" class="mr-2" />
+              </template>
+              <v-list-item-title class="text-body-2">Pode ser overkill para casos simples</v-list-item-title>
+            </v-list-item>
+            <v-list-item class="px-0 min-h-0">
+              <template #prepend>
+                <v-icon icon="mdi-close" color="error" size="small" class="mr-2" />
+              </template>
+              <v-list-item-title class="text-body-2">Precisa limpar estado ao desmontar</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-card-text>
+      </v-card>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script setup lang="ts">

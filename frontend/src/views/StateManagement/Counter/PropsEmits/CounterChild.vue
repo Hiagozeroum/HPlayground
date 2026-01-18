@@ -1,43 +1,27 @@
 <template>
-  <div class="child bg-white dark:bg-gray-900 p-4 rounded border border-gray-200 dark:border-gray-700 mt-3">
+  <v-card color="demo-child" variant="flat" class="pa-4 mt-3">
     <div class="mb-3">
-      <span class="text-xs font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
-        CounterChild.vue
-      </span>
+      <v-chip size="small" color="demo-badge" label>
+        <span class="font-weight-medium text-caption">CounterChild.vue</span>
+      </v-chip>
     </div>
 
     <div class="mb-4">
-      <p class="text-sm mb-2">Props recebida:</p>
-      <div class="text-xl font-semibold text-purple-600 dark:text-purple-400">
+      <p class="text-body-2 mb-2">Props recebida:</p>
+      <p class="">Teste</p>
+      <div class="text-h5 font-weight-bold text-primary">
         {{ count }}
       </div>
     </div>
 
-    <div class="flex gap-2">
-      <button
-        @click="$emit('decrement')"
-        class="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded text-sm transition-colors"
-      >
-        -
-      </button>
-      <button
-        @click="$emit('increment')"
-        class="px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded text-sm transition-colors"
-      >
-        +
-      </button>
-      <button
-        @click="$emit('reset')"
-        class="px-3 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded text-sm transition-colors"
-      >
-        Reset
-      </button>
+    <div class="d-flex ga-2">
+      <v-btn color="error" size="small" @click="$emit('decrement')"> - </v-btn>
+      <v-btn color="success" size="small" @click="$emit('increment')"> + </v-btn>
+      <v-btn color="secondary" size="small" @click="$emit('reset')"> Reset </v-btn>
     </div>
 
-    <div class="mt-3 text-xs text-gray-500">
-      💡 Emits: increment, decrement, reset
-    </div>
-  </div>
+    <p class="text-caption text-medium-emphasis mt-3">Emits: increment, decrement, reset</p>
+  </v-card>
 </template>
 
 <script setup lang="ts">

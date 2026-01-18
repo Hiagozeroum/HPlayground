@@ -1,38 +1,31 @@
 <template>
-  <div class="form-footer bg-gray-50 dark:bg-gray-900 p-6 border-t border-gray-200 dark:border-gray-700">
-    <div class="mb-3 text-xs font-mono bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded inline-block">
+  <v-card-actions class="pa-4">
+    <v-chip size="x-small" color="demo-badge" label>
       FormFooter.vue (Consumer)
-    </div>
+    </v-chip>
 
-    <div class="flex items-center justify-between">
-      <button
-        @click="reset"
-        :disabled="!hasChanges"
-        class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        Limpar
-      </button>
+    <v-spacer />
 
-      <div class="flex gap-3">
-        <button
-          @click="handleSubmit"
-          :disabled="!isValid || isSubmitting"
-          class="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-        >
-          <span v-if="isSubmitting">Enviando...</span>
-          <span v-else>Enviar</span>
-        </button>
-      </div>
-    </div>
+    <v-btn variant="outlined" :disabled="!hasChanges" @click="reset">
+      Limpar
+    </v-btn>
 
-    <!-- Feedback de sucesso -->
-    <div
-      v-if="showSuccess"
-      class="mt-4 p-3 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700 rounded text-sm text-green-800 dark:text-green-200"
+    <v-btn
+      color="primary"
+      :disabled="!isValid || isSubmitting"
+      :loading="isSubmitting"
+      @click="handleSubmit"
     >
-      ✓ Formulário enviado com sucesso!
-    </div>
-  </div>
+      Enviar
+    </v-btn>
+  </v-card-actions>
+
+  <v-snackbar v-model="showSuccess" color="success" :timeout="3000">
+    Formulário enviado com sucesso!
+    <template #actions>
+      <v-btn variant="text" @click="showSuccess = false">Fechar</v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <script setup lang="ts">

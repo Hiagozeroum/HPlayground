@@ -1,34 +1,27 @@
 <template>
-  <div class="form-header bg-purple-600 text-white p-6">
-    <div class="flex items-center justify-between">
-      <div>
-        <h2 class="text-2xl font-bold">Cadastro de Usuário</h2>
-        <p class="text-sm text-purple-100 mt-1">Preencha os campos abaixo</p>
-      </div>
+  <v-toolbar color="primary" dark>
+    <v-toolbar-title>
+      <div class="text-h6">Cadastro de Usuário</div>
+      <div class="text-caption">Preencha os campos abaixo</div>
+    </v-toolbar-title>
 
-      <div class="text-right">
-        <div class="text-xs text-purple-100 mb-1">Status</div>
-        <div class="flex items-center gap-2">
-          <span
-            class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold"
-            :class="isValid ? 'bg-green-500' : 'bg-red-500'"
-          >
-            {{ isValid ? '✓ Válido' : '✗ Inválido' }}
-          </span>
+    <v-spacer />
 
-          <span
-            v-if="hasChanges"
-            class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-yellow-500"
-          >
-            Modificado
-          </span>
-        </div>
-      </div>
+    <div class="d-flex align-center ga-2">
+      <v-chip :color="isValid ? 'success' : 'error'" size="small" label>
+        {{ isValid ? '✓ Válido' : '✗ Inválido' }}
+      </v-chip>
+
+      <v-chip v-if="hasChanges" color="warning" size="small" label>
+        Modificado
+      </v-chip>
     </div>
+  </v-toolbar>
 
-    <div class="mt-3 text-xs font-mono bg-purple-700 px-2 py-1 rounded inline-block">
+  <div class="pa-2">
+    <v-chip size="x-small" color="demo-badge" label>
       FormHeader.vue (Consumer)
-    </div>
+    </v-chip>
   </div>
 </template>
 

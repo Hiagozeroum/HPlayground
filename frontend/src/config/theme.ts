@@ -49,8 +49,8 @@ export const darkTheme: ThemeDefinition = {
     warning: '#F59E0B',
 
     // Backgrounds escuros modernos
-    background: '#0F0F0F', // Quase preto
-    surface: '#1A1A1A', // Cinza muito escuro
+    background: '#2c2b2b', // Quase preto
+    surface: '#202020', // Cinza muito escuro
     'surface-bright': '#212121', // Um pouco mais claro
     'surface-variant': '#2C2C2C',
 
@@ -68,5 +68,10 @@ export const darkTheme: ThemeDefinition = {
     'custom-purple': '#A78BFA',
     'custom-teal': '#14B8A6',
     'custom-orange': '#F97316',
+
+    // Cores para componentes de demonstração (StateManagement, etc.)
+    'demo-parent': '#2D2D3A', // Fundo do componente pai
+    'demo-child': '#1E1E28', // Fundo do componente filho (mais escuro para contraste)
+    'demo-badge': '#6366F1', // Badge com nome do componente (indigo para destaque)
   },
 }
