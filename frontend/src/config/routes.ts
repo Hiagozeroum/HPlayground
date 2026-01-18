@@ -3,6 +3,10 @@ import HomePage from '@/views/HomePage.vue'
 import Login from '@/views/Login.vue'
 import ComponentsPlayground from '@/views/ComponentsPlayground.vue'
 import CustomDirectivesPage from '@/views/CustomDirectivesPage.vue'
+import StateManagementIndex from '@/views/StateManagement/StateManagementIndex.vue'
+import CounterExample from '@/views/StateManagement/Counter/CounterExample.vue'
+import FormExample from '@/views/StateManagement/Form/FormExample.vue'
+import TableExample from '@/views/StateManagement/Table/TableExample.vue'
 
 /**
  * Configuração centralizada de rotas
@@ -52,6 +56,46 @@ export const routesConfig: RouteInfo[] = [
     showInHome: true,
     category: 'playground',
   },
+  {
+    path: '/state-management',
+    name: 'state-management',
+    title: 'State Management',
+    description: 'Comparação de abordagens: Props/Emits, Provide/Inject e Pinia',
+    icon: 'mdi-state-machine',
+    component: StateManagementIndex,
+    showInHome: true,
+    category: 'estudos',
+  },
+  {
+    path: '/state-management/counter',
+    name: 'state-management-counter',
+    title: 'Exemplo: Contador',
+    description: 'Comparação de Props/Emits, Pinia e Provide/Inject',
+    icon: 'mdi-counter',
+    component: CounterExample,
+    showInHome: false,
+    category: 'estudos',
+  },
+  {
+    path: '/state-management/form',
+    name: 'state-management-form',
+    title: 'Exemplo: Formulário',
+    description: 'Formulário multi-nível com createInjectionState',
+    icon: 'mdi-form-select',
+    component: FormExample,
+    showInHome: false,
+    category: 'estudos',
+  },
+  {
+    path: '/state-management/table',
+    name: 'state-management-table',
+    title: 'Exemplo: Tabela',
+    description: 'Tabela complexa: Pinia vs Provide/Inject',
+    icon: 'mdi-table',
+    component: TableExample,
+    showInHome: false,
+    category: 'estudos',
+  },
 ]
 
 /**
@@ -72,5 +116,10 @@ export const routeGroups: RouteGroup[] = [
     name: 'Playground',
     icon: 'mdi-gamepad-variant',
     routes: routesConfig.filter((r) => r.category === 'playground'),
+  },
+  {
+    name: 'Estudos',
+    icon: 'mdi-school',
+    routes: routesConfig.filter((r) => r.category === 'estudos'),
   },
 ].filter((group) => group.routes.length > 0) // Remove grupos vazios
