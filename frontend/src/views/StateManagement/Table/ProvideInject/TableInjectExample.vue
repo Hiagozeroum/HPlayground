@@ -3,7 +3,7 @@
     <div class="d-flex align-center justify-space-between mb-4">
       <v-chip color="primary" label>
         <v-icon icon="mdi-injection" size="small" class="mr-1" />
-        🎯 TableInjectExample.vue (Nível 1 - Provider)
+        🎯 TableInjectExample.vue (Nível 1 - Provider) - {{ allProducts.length }}
       </v-chip>
     </div>
 
@@ -16,7 +16,8 @@ import { useProvideTableContext } from './useTableContext'
 import TableContainer from './components/TableContainer.vue'
 
 // 🎯 NÍVEL 1 (ROOT): Provider - cria e fornece o contexto para toda a árvore
-useProvideTableContext()
+const { allProducts } = useProvideTableContext()
 
-// Note: Não precisa de onUnmounted para limpar - é automático! ✨
+// Poderia simplesmente fazer o provide também.
+// useProvideTableContext()
 </script>
