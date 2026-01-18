@@ -4,7 +4,9 @@
       <div class="text-h6">Cadastro de Usuário</div>
       <div class="text-caption">
         Preencha os campos abaixo
-        <v-chip size="x-small" color="demo-badge" label> FormHeader.vue (Consumer) </v-chip>
+        <v-chip size="x-small" color="demo-badge" label>
+          📋 FormHeader.vue (Nível 3)
+        </v-chip>
       </div>
     </v-toolbar-title>
 
@@ -22,6 +24,7 @@
 <script setup lang="ts">
 import { useFormContext } from './useFormContext'
 
-// Consume o contexto fornecido pelo FormExample
+// 📋 NÍVEL 3: Consumer - injeta o contexto para mostrar status do formulário
+// Desestruturação deixa explícito o que está sendo usado
 const { isValid, hasChanges } = useFormContext()!
 </script>

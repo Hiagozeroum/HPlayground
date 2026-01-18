@@ -1,6 +1,8 @@
 <template>
   <v-card-actions class="pa-4">
-    <v-chip size="x-small" color="demo-badge" label> FormFooter.vue (Consumer) </v-chip>
+    <v-chip size="x-small" color="demo-badge" label>
+      ⚡ FormFooter.vue (Nível 3)
+    </v-chip>
 
     <v-spacer />
 
@@ -28,6 +30,8 @@
 import { ref } from 'vue'
 import { useFormContext } from './useFormContext'
 
+// ⚡ NÍVEL 3: Consumer - injeta o contexto para ações do formulário
+// Desestruturação deixa explícito o que está sendo usado
 const { isValid, isSubmitting, hasChanges, submit, reset } = useFormContext()!
 const showSuccess = ref(false)
 
@@ -36,10 +40,6 @@ async function handleSubmit() {
 
   if (success) {
     showSuccess.value = true
-    setTimeout(() => {
-      showSuccess.value = false
-      reset()
-    }, 3000)
   }
 }
 </script>

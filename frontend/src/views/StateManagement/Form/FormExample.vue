@@ -11,33 +11,27 @@
 
         <!-- Hierarquia de Componentes -->
         <v-alert type="info" variant="tonal" class="mb-6">
-          <template #title>Hierarquia de Componentes</template>
+          <template #title>Hierarquia de Componentes (5 níveis)</template>
           <div class="text-caption font-weight-medium mt-2" style="font-family: monospace">
-            <div>FormExample.vue (Root - Provider)</div>
-            <div class="ml-4">├─ FormHeader.vue (Consumer)</div>
-            <div class="ml-4">├─ FormFields.vue (Consumer)</div>
-            <div class="ml-8">│ ├─ NameField.vue (Consumer - nível 3)</div>
-            <div class="ml-8">│ ├─ EmailField.vue (Consumer - nível 3)</div>
-            <div class="ml-8">│ ├─ AgeField.vue (Consumer - nível 3)</div>
-            <div class="ml-8">│ └─ TermsField.vue (Consumer - nível 3)</div>
-            <div class="ml-4">└─ FormFooter.vue (Consumer)</div>
+            <div>📦 FormExample.vue (Root - Provider)</div>
+            <div class="ml-4">└─ 📄 FormContainer.vue (Consumer - Nível 2)</div>
+            <div class="ml-8">├─ 📋 FormHeader.vue (Consumer - Nível 3)</div>
+            <div class="ml-8">├─ 📝 FormBody.vue (Consumer - Nível 3)</div>
+            <div class="ml-12">└─ 🔢 FormFieldsGroup.vue (Consumer - Nível 4)</div>
+            <div class="ml-16">├─ NameField.vue (Consumer - Nível 5)</div>
+            <div class="ml-16">├─ EmailField.vue (Consumer - Nível 5)</div>
+            <div class="ml-16">├─ AgeField.vue (Consumer - Nível 5)</div>
+            <div class="ml-16">└─ TermsField.vue (Consumer - Nível 5)</div>
+            <div class="ml-8">└─ ⚡ FormFooter.vue (Consumer - Nível 3)</div>
           </div>
         </v-alert>
 
         <!-- Formulário -->
-        <v-row justify="center">
-          <v-col cols="12" md="8" lg="6">
-            <v-card elevation="3">
-              <FormHeader />
-              <FormFields />
-              <FormFooter />
-            </v-card>
-          </v-col>
-        </v-row>
+        <FormContainer />
 
         <!-- Insights -->
         <v-alert type="success" variant="tonal" class="mt-6">
-          <template #title>Por que createInjectionState é ideal aqui?</template>
+          <template #title>🎯 Por que createInjectionState é ideal aqui?</template>
 
           <v-list density="compact" class="bg-transparent pa-0 mt-2">
             <v-list-item class="px-0">
@@ -65,8 +59,8 @@
                 <v-icon icon="mdi-check" color="success" size="small" class="mr-2" />
               </template>
               <v-list-item-title class="text-body-2">
-                <strong>Sem props drilling:</strong> Componentes de nível 3 acessam diretamente o
-                contexto, sem precisar que FormFields repasse props.
+                <strong>Sem props drilling:</strong> Componentes de nível 5 acessam diretamente o
+                contexto, sem precisar que níveis intermediários repassem props.
               </v-list-item-title>
             </v-list-item>
 
@@ -85,8 +79,8 @@
                 <v-icon icon="mdi-check" color="success" size="small" class="mr-2" />
               </template>
               <v-list-item-title class="text-body-2">
-                <strong>Testável:</strong> Você pode testar cada campo isoladamente mockando o
-                contexto.
+                <strong>5 níveis de hierarquia:</strong> Demonstra que mesmo com múltiplos níveis, não há
+                degradação ou complexidade - cada componente simplesmente injeta o que precisa.
               </v-list-item-title>
             </v-list-item>
           </v-list>
@@ -116,9 +110,8 @@
 
 <script setup lang="ts">
 import { useProvideFormContext } from './useFormContext'
-import FormHeader from './FormHeader.vue'
-import FormFields from './FormFields.vue'
-import FormFooter from './FormFooter.vue'
+import FormContainer from './FormContainer.vue'
 
-useProvideFormContext({ name: 'Nome inicial' }, { validateOnMount: false })
+// 📦 NÍVEL 1 (ROOT): Provider - cria e fornece o contexto para toda a árvore
+useProvideFormContext()
 </script>

@@ -15,7 +15,7 @@
       @blur="validateAge"
     >
       <template #append-inner>
-        <v-chip size="x-small" color="demo-badge" label> AgeField.vue </v-chip>
+        <v-chip size="x-small" color="demo-badge" label> AgeField.vue (Nível 5) </v-chip>
       </template>
     </v-text-field>
   </div>
@@ -24,5 +24,7 @@
 <script setup lang="ts">
 import { useFormContext } from './useFormContext'
 
+// 🔢 NÍVEL 5: Consumer - campo individual que injeta o contexto
+// Desestruturação deixa explícito o que está sendo usado
 const { formData, errors, updateField, validateAge } = useFormContext()!
 </script>
