@@ -1,14 +1,10 @@
 <template>
   <v-card-actions class="pa-4">
-    <v-chip size="x-small" color="demo-badge" label>
-      FormFooter.vue (Consumer)
-    </v-chip>
+    <v-chip size="x-small" color="demo-badge" label> FormFooter.vue (Consumer) </v-chip>
 
     <v-spacer />
 
-    <v-btn variant="outlined" :disabled="!hasChanges" @click="reset">
-      Limpar
-    </v-btn>
+    <v-btn variant="outlined" :disabled="!hasChanges" @click="reset"> Limpar </v-btn>
 
     <v-btn
       color="primary"
@@ -32,7 +28,6 @@
 import { ref } from 'vue'
 import { useFormContext } from './useFormContext'
 
-// Desestruturação deixa explícito o que está sendo usado
 const { isValid, isSubmitting, hasChanges, submit, reset } = useFormContext()!
 const showSuccess = ref(false)
 

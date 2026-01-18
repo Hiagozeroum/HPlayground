@@ -23,8 +23,8 @@ function goHome() {
 
     <v-spacer></v-spacer>
 
-    <v-btn icon variant="text" v-h-tooltip="'Configurações'">
-      <v-icon>mdi-cog</v-icon>
+    <v-btn icon variant="text" v-h-tooltip="'Vue DevTools'" href="/__devtools__/" target="_blank">
+      <v-icon>mdi-vuejs</v-icon>
     </v-btn>
   </v-app-bar>
 </template>

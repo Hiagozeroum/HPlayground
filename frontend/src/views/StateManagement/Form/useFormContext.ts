@@ -1,5 +1,5 @@
 import { createInjectionState } from '@vueuse/core'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 export interface FormData {
   name: string
@@ -28,14 +28,18 @@ export interface FormErrors {
  * - SSR-safe
  * - Contexto isolado (não global como Pinia)
  */
+export interface FormContextOptions {
+  validateOnMount?: boolean
+}
+
 export const [useProvideFormContext, useFormContext] = createInjectionState(
-  (initialData?: Partial<FormData>) => {
+  (initialData?: Partial<FormData>, options?: FormContextOptions) => {
     // Estado do formulário
     const formData = ref<FormData>({
       name: initialData?.name || '',
       email: initialData?.email || '',
       age: initialData?.age || '',
-      terms: initialData?.terms || false
+      terms: initialData?.terms || false,
     })
 
     // Erros de validação
@@ -52,6 +56,14 @@ export const [useProvideFormContext, useFormContext] = createInjectionState(
 
     const hasChanges = computed(() => {
       return isDirty.value
+    })
+
+    onMounted(() => {
+      console.log('Form mounted! Options:', options)
+      if (options?.validateOnMount) {
+        console.log('Validating on mount...')
+        validateAll()
+      }
     })
 
     // Métodos de validação
@@ -146,7 +158,7 @@ export const [useProvideFormContext, useFormContext] = createInjectionState(
 
       try {
         // Simula chamada de API
-        await new Promise(resolve => setTimeout(resolve, 1500))
+        await new Promise((resolve) => setTimeout(resolve, 1500))
 
         console.log('Formulário enviado:', formData.value)
         return true
@@ -164,7 +176,7 @@ export const [useProvideFormContext, useFormContext] = createInjectionState(
         name: '',
         email: '',
         age: '',
-        terms: false
+        terms: false,
       }
       errors.value = {}
       isDirty.value = false
@@ -190,7 +202,7 @@ export const [useProvideFormContext, useFormContext] = createInjectionState(
       validateTerms,
       validateAll,
       submit,
-      reset
+      reset,
     }
-  }
+  },
 )

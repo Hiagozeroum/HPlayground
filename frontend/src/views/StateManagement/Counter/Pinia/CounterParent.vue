@@ -13,9 +13,7 @@
 
     <CounterChild />
 
-    <p class="text-caption text-medium-emphasis mt-3">
-      Nenhuma prop passada para o filho!
-    </p>
+    <p class="text-caption text-medium-emphasis mt-3">Nenhuma prop passada para o filho!</p>
   </v-card>
 </template>
 

@@ -12,14 +12,14 @@
         <!-- Hierarquia de Componentes -->
         <v-alert type="info" variant="tonal" class="mb-6">
           <template #title>Hierarquia de Componentes</template>
-          <div class="text-caption font-weight-medium mt-2" style="font-family: monospace;">
+          <div class="text-caption font-weight-medium mt-2" style="font-family: monospace">
             <div>FormExample.vue (Root - Provider)</div>
             <div class="ml-4">├─ FormHeader.vue (Consumer)</div>
             <div class="ml-4">├─ FormFields.vue (Consumer)</div>
-            <div class="ml-8">│  ├─ NameField.vue (Consumer - nível 3)</div>
-            <div class="ml-8">│  ├─ EmailField.vue (Consumer - nível 3)</div>
-            <div class="ml-8">│  ├─ AgeField.vue (Consumer - nível 3)</div>
-            <div class="ml-8">│  └─ TermsField.vue (Consumer - nível 3)</div>
+            <div class="ml-8">│ ├─ NameField.vue (Consumer - nível 3)</div>
+            <div class="ml-8">│ ├─ EmailField.vue (Consumer - nível 3)</div>
+            <div class="ml-8">│ ├─ AgeField.vue (Consumer - nível 3)</div>
+            <div class="ml-8">│ └─ TermsField.vue (Consumer - nível 3)</div>
             <div class="ml-4">└─ FormFooter.vue (Consumer)</div>
           </div>
         </v-alert>
@@ -55,8 +55,8 @@
                 <v-icon icon="mdi-check" color="success" size="small" class="mr-2" />
               </template>
               <v-list-item-title class="text-body-2">
-                <strong>Type-safe:</strong> TypeScript sabe exatamente quais campos e métodos
-                estão disponíveis, com autocomplete completo.
+                <strong>Type-safe:</strong> TypeScript sabe exatamente quais campos e métodos estão
+                disponíveis, com autocomplete completo.
               </v-list-item-title>
             </v-list-item>
 
@@ -120,6 +120,5 @@ import FormHeader from './FormHeader.vue'
 import FormFields from './FormFields.vue'
 import FormFooter from './FormFooter.vue'
 
-// Provider: fornece o contexto para toda a árvore de componentes
-useProvideFormContext()
+useProvideFormContext({ name: 'Nome inicial' }, { validateOnMount: false })
 </script>

@@ -2,16 +2,14 @@
   <div>
     <v-checkbox
       :model-value="formData.terms"
-      @update:model-value="(val) => updateField('terms', val)"
       label="Aceito os termos e condições *"
       :error-messages="errors.terms ? [errors.terms] : []"
       color="primary"
       hide-details="auto"
+      @update:model-value="(val) => updateField('terms', val)"
     >
       <template #append>
-        <v-chip size="x-small" color="demo-badge" label>
-          TermsField.vue
-        </v-chip>
+        <v-chip size="x-small" color="demo-badge" label> TermsField.vue </v-chip>
       </template>
     </v-checkbox>
   </div>

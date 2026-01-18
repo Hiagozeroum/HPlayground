@@ -26,15 +26,17 @@
                 </p>
 
                 <v-card variant="flat" color="surface-variant" class="mb-4">
-                  <v-card-text class="text-caption" style="font-family: monospace">
-                    <div>TableRoot.vue</div>
-                    <div class="ml-3">const store = useTableStore()</div>
-                    <div class="ml-3">├─ TableFilters.vue</div>
-                    <div class="ml-6">const store = useTableStore()</div>
-                    <div class="ml-3">├─ TableContent.vue</div>
-                    <div class="ml-6">const store = useTableStore()</div>
-                    <div class="ml-3">└─ TablePagination.vue</div>
-                    <div class="ml-6">const store = useTableStore()</div>
+                  <v-card-text class="text-caption pa-0">
+                    <pre class="pa-3 ma-0" style="overflow-x: auto">
+TableRoot.vue
+   const store = useTableStore()
+   ├─ TableFilters.vue
+      const store = useTableStore()
+   ├─ TableContent.vue
+      const store = useTableStore()
+   └─ TablePagination.vue
+      const store = useTableStore()</pre
+                    >
                   </v-card-text>
                 </v-card>
 
@@ -81,15 +83,17 @@
                 </p>
 
                 <v-card variant="flat" color="surface-variant" class="mb-4">
-                  <v-card-text class="text-caption" style="font-family: monospace">
-                    <div>TableRoot.vue (Provider)</div>
-                    <div class="ml-3">useProvideTableContext()</div>
-                    <div class="ml-3">├─ TableFilters.vue</div>
-                    <div class="ml-6">const ctx = useTableContext()</div>
-                    <div class="ml-3">├─ TableContent.vue</div>
-                    <div class="ml-6">const ctx = useTableContext()</div>
-                    <div class="ml-3">└─ TablePagination.vue</div>
-                    <div class="ml-6">const ctx = useTableContext()</div>
+                  <v-card-text class="text-caption pa-0">
+                    <pre class="pa-3 ma-0" style="overflow-x: auto">
+TableRoot.vue (Provider)
+   useProvideTableContext()
+   ├─ TableFilters.vue
+      const ctx = useTableContext()
+   ├─ TableContent.vue
+      const ctx = useTableContext()
+   └─ TablePagination.vue
+      const ctx = useTableContext()</pre
+                    >
                   </v-card-text>
                 </v-card>
 
@@ -262,5 +266,5 @@ const injectVantagens = [
   'Mais leve (sem overhead de store)',
 ]
 
-const injectDesvantagens = ['Precisa de @vueuse/core', 'Não tem DevTools nativo']
+const injectDesvantagens = ['Devtools menos poderoso em relação ao Pinia']
 </script>
