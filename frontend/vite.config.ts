@@ -3,7 +3,12 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+
+// ⚠️ TEMPORÁRIO: DevTools habilitado em PRODUÇÃO para testes
+// TODO: REMOVER vueDevTools() antes de lançar versão final
+// Mude para: const enableDevtools = import.meta.env.MODE !== 'production'
 const enableDevtools = true
+
 const devTools = enableDevtools ? vueDevTools() : null
 // https://vite.dev/config/
 export default defineConfig({
