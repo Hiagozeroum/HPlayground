@@ -1,46 +1,6 @@
-# Claude Code - Instruções do Projeto
+# Frontend — Instruções do Módulo
 
-## Documentação Técnica (Discovery & Learning)
-
-### Estrutura de Documentação
-
-Para discussões técnicas, análises e estudos que precisam ser preservados:
-
-- **Localização:** `/estudos/` (pasta na raiz do projeto)
-- **Formato:** Arquivos Markdown (.md)
-- **Organização:**
-  - Arquivos soltos para tópicos únicos/simples
-  - Subpastas para contextos relacionados (ex: `estudos/gerenciamento-estados/`)
-
-### Quando Documentar
-
-Crie documentação quando:
-- ✅ Discovery técnico ou comparação de abordagens
-- ✅ Discussões que resultam em decisões arquiteturais
-- ✅ Aprendizado de conceitos que podem ser reutilizados
-- ✅ Análises de prós e contras de diferentes soluções
-
-### Formato da Documentação
-
-Inclua sempre:
-1. **Contexto da discussão** - Input/perguntas iniciais do usuário
-2. **Análise técnica** - Comparações, diagramas, exemplos
-3. **Conclusões e recomendações** - Decision tree, quando usar cada abordagem
-4. **Próximos passos** - Se aplicável, exemplos práticos a serem implementados
-
-### Exemplo de Estrutura
-
-```
-estudos/
-├── gerenciamento-estados/
-│   ├── comparacao-abordagens.md
-│   ├── guia-decisao.md
-│   └── exemplos-praticos.md
-└── performance/
-    └── otimizacao-render.md
-```
-
----
+> Instruções globais do projeto (documentação, padrões gerais) estão em `/CLAUDE.md`.
 
 ## Convenções do Projeto
 
