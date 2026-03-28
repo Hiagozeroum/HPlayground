@@ -7,6 +7,7 @@ import StateManagementIndex from '@/views/StateManagement/StateManagementIndex.v
 import CounterExample from '@/views/StateManagement/Counter/CounterExample.vue'
 import FormExample from '@/views/StateManagement/Form/FormExample.vue'
 import TableExample from '@/views/StateManagement/Table/TableExample.vue'
+import ReportsPage from '@/views/Reports/ReportsPage.vue'
 
 /**
  * Configuração centralizada de rotas
@@ -84,6 +85,16 @@ export const routesConfig: RouteInfo[] = [
     icon: 'mdi-table',
     component: TableExample,
     showInHome: false,
+    category: 'estudos',
+  },
+  {
+    path: '/reports',
+    name: 'reports',
+    title: 'Geração de Relatórios',
+    description: 'Geração de CSV com progresso em tempo real via WebSocket',
+    icon: 'mdi-file-chart',
+    component: ReportsPage,
+    showInHome: true,
     category: 'estudos',
   },
   {
