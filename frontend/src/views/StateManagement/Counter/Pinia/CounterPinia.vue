@@ -5,7 +5,22 @@
     </v-card-title>
 
     <v-card-text>
-      <CounterParent />
+      <v-tabs v-model="tab" density="compact" class="mb-4">
+        <v-tab value="component" prepend-icon="mdi-play-box">Componente</v-tab>
+        <v-tab value="tree" prepend-icon="mdi-file-tree">Hierarquia</v-tab>
+      </v-tabs>
+
+      <v-tabs-window v-model="tab">
+        <v-tabs-window-item value="component">
+          <CounterParent />
+        </v-tabs-window-item>
+
+        <v-tabs-window-item value="tree">
+          <div style="border: 1px dashed rgba(0,0,0,0.2); border-radius: 12px; padding: 16px;">
+            <CounterPiniaTree />
+          </div>
+        </v-tabs-window-item>
+      </v-tabs-window>
 
       <v-card variant="tonal" color="info" class="mt-4">
         <v-card-text>
@@ -65,5 +80,9 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import CounterParent from './CounterParent.vue'
+import CounterPiniaTree from './CounterPiniaTree.vue'
+
+const tab = ref<'component' | 'tree'>('component')
 </script>

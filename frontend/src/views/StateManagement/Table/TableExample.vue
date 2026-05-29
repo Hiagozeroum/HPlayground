@@ -10,122 +10,6 @@
           </p>
         </div>
 
-        <!-- Comparação conceitual -->
-        <v-row class="mb-6">
-          <!-- Pinia -->
-          <v-col cols="12" lg="6">
-            <v-card elevation="2" class="h-100">
-              <v-card-title class="text-info">
-                <v-icon icon="mdi-store" class="mr-2" />
-                Opção A: Pinia Store
-              </v-card-title>
-
-              <v-card-text>
-                <p class="text-body-2 mb-3">
-                  Store global acessível de qualquer componente da aplicação.
-                </p>
-
-                <v-card variant="flat" color="surface-variant" class="mb-4">
-                  <v-card-text class="text-caption pa-0">
-                    <pre class="pa-3 ma-0" style="overflow-x: auto">
-TableRoot.vue
-   const store = useTableStore()
-   ├─ TableFilters.vue
-      const store = useTableStore()
-   ├─ TableContent.vue
-      const store = useTableStore()
-   └─ TablePagination.vue
-      const store = useTableStore()</pre
-                    >
-                  </v-card-text>
-                </v-card>
-
-                <p class="text-subtitle-2 font-weight-bold mb-2">Vantagens:</p>
-                <v-list density="compact" class="bg-transparent pa-0 mb-3">
-                  <v-list-item v-for="item in piniaVantagens" :key="item" class="px-0 min-h-0">
-                    <template #prepend>
-                      <v-icon icon="mdi-check" color="success" size="small" class="mr-2" />
-                    </template>
-                    <v-list-item-title class="text-body-2">{{ item }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-
-                <p class="text-subtitle-2 font-weight-bold mb-2">Desvantagens:</p>
-                <v-list density="compact" class="bg-transparent pa-0 mb-3">
-                  <v-list-item v-for="item in piniaDesvantagens" :key="item" class="px-0 min-h-0">
-                    <template #prepend>
-                      <v-icon icon="mdi-close" color="error" size="small" class="mr-2" />
-                    </template>
-                    <v-list-item-title class="text-body-2">{{ item }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-
-                <v-alert type="info" variant="tonal" density="compact">
-                  <strong>Quando usar:</strong> Estado que precisa persistir entre rotas ou ser
-                  acessado globalmente
-                </v-alert>
-              </v-card-text>
-            </v-card>
-          </v-col>
-
-          <!-- Provide/Inject -->
-          <v-col cols="12" lg="6">
-            <v-card elevation="2" class="h-100">
-              <v-card-title class="text-primary">
-                <v-icon icon="mdi-injection" class="mr-2" />
-                Opção B: Provide/Inject (createInjectionState)
-              </v-card-title>
-
-              <v-card-text>
-                <p class="text-body-2 mb-3">
-                  Contexto isolado fornecido pelo componente raiz, acessível apenas por seus
-                  descendentes.
-                </p>
-
-                <v-card variant="flat" color="surface-variant" class="mb-4">
-                  <v-card-text class="text-caption pa-0">
-                    <pre class="pa-3 ma-0" style="overflow-x: auto">
-TableRoot.vue (Provider)
-   useProvideTableContext()
-   ├─ TableFilters.vue
-      const ctx = useTableContext()
-   ├─ TableContent.vue
-      const ctx = useTableContext()
-   └─ TablePagination.vue
-      const ctx = useTableContext()</pre
-                    >
-                  </v-card-text>
-                </v-card>
-
-                <p class="text-subtitle-2 font-weight-bold mb-2">Vantagens:</p>
-                <v-list density="compact" class="bg-transparent pa-0 mb-3">
-                  <v-list-item v-for="item in injectVantagens" :key="item" class="px-0 min-h-0">
-                    <template #prepend>
-                      <v-icon icon="mdi-check" color="success" size="small" class="mr-2" />
-                    </template>
-                    <v-list-item-title class="text-body-2">{{ item }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-
-                <p class="text-subtitle-2 font-weight-bold mb-2">Desvantagens:</p>
-                <v-list density="compact" class="bg-transparent pa-0 mb-3">
-                  <v-list-item v-for="item in injectDesvantagens" :key="item" class="px-0 min-h-0">
-                    <template #prepend>
-                      <v-icon icon="mdi-close" color="error" size="small" class="mr-2" />
-                    </template>
-                    <v-list-item-title class="text-body-2">{{ item }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-
-                <v-alert color="primary" variant="tonal" density="compact">
-                  <strong>Quando usar:</strong> Estado que vive apenas durante o ciclo de vida do
-                  componente raiz
-                </v-alert>
-              </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-
         <!-- Demonstração interativa -->
         <v-card elevation="2" class="mb-6">
           <v-card-title>
@@ -134,19 +18,37 @@ TableRoot.vue (Provider)
           </v-card-title>
 
           <v-card-text>
-            <v-btn-toggle v-model="activeTab" mandatory class="mb-4">
-              <v-btn value="pinia" color="info">
-                <v-icon icon="mdi-store" class="mr-2" />
-                Pinia Store
-              </v-btn>
-              <v-btn value="inject" color="primary">
-                <v-icon icon="mdi-injection" class="mr-2" />
-                Provide/Inject
-              </v-btn>
-            </v-btn-toggle>
+            <div class="d-flex align-center flex-wrap mb-4" style="gap: 24px;">
+              <v-btn-toggle v-model="activeTab" mandatory>
+                <v-btn value="pinia" color="info">
+                  <v-icon icon="mdi-store" class="mr-2" />
+                  Pinia Store
+                </v-btn>
+                <v-btn value="inject" color="primary">
+                  <v-icon icon="mdi-injection" class="mr-2" />
+                  Provide/Inject
+                </v-btn>
+              </v-btn-toggle>
 
-            <TablePiniaExample v-if="activeTab === 'pinia'" />
-            <TableInjectExample v-else />
+              <v-tabs v-model="demoView" density="compact">
+                <v-tab value="component" prepend-icon="mdi-monitor">Componente</v-tab>
+                <v-tab value="tree" prepend-icon="mdi-file-tree">Hierarquia</v-tab>
+              </v-tabs>
+            </div>
+
+            <v-tabs-window v-model="demoView">
+              <v-tabs-window-item value="component">
+                <TablePiniaExample v-if="activeTab === 'pinia'" />
+                <TableInjectExample v-else />
+              </v-tabs-window-item>
+
+              <v-tabs-window-item value="tree">
+                <div class="whiteboard">
+                  <TablePiniaTree v-if="activeTab === 'pinia'" />
+                  <TableInjectTree v-else />
+                </div>
+              </v-tabs-window-item>
+            </v-tabs-window>
           </v-card-text>
         </v-card>
 
@@ -242,29 +144,19 @@ TableRoot.vue (Provider)
 import { ref } from 'vue'
 import TablePiniaExample from './Pinia/TablePiniaExample.vue'
 import TableInjectExample from './ProvideInject/TableInjectExample.vue'
+import TablePiniaTree from './Pinia/TablePiniaTree.vue'
+import TableInjectTree from './ProvideInject/TableInjectTree.vue'
 
 const activeTab = ref<'pinia' | 'inject'>('inject')
-
-const piniaVantagens = [
-  'Acesso direto de qualquer lugar',
-  'Vue DevTools para debug',
-  'Persistência entre rotas (se necessário)',
-  'Fácil de testar (mock da store)',
-]
-
-const piniaDesvantagens = [
-  'Acoplamento global',
-  'Precisa resetar estado manualmente',
-  'Overhead de store global para contexto local',
-]
-
-const injectVantagens = [
-  'Contexto automaticamente isolado',
-  'Limpeza automática ao desmontar',
-  'Rastreabilidade (import explícito)',
-  'Type-safe automático',
-  'Mais leve (sem overhead de store)',
-]
-
-const injectDesvantagens = ['Devtools menos poderoso em relação ao Pinia']
+const demoView = ref<'component' | 'tree'>('component')
 </script>
+
+<style scoped>
+.whiteboard {
+  border: 1px dashed rgba(var(--v-theme-on-surface), 0.25);
+  border-radius: 12px;
+  padding: 16px;
+  background:
+    radial-gradient(rgba(var(--v-theme-on-surface), 0.06) 1px, transparent 1px) 0 0 / 16px 16px;
+}
+</style>
